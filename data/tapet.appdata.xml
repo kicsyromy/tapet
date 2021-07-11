@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2021 Romeo Calotă <mail@romeocalota.me> -->
+<component type="desktop">
+    <id>com.github.kicsyromy.tapet</id>
+    <metadata_license>CC0</metadata_license>
+    <name>Tapet</name>
+    <summary>Download and apply wallpapers from popular online sources</summary>
+    <description>
+        <p>Download and apply wallpapers from popular online sources</p>
+    </description>
+</component>

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Tapet
+GenericName=Tapet Wallpaper Manager
+Comment=Download and apply wallpapers from popular online sources
+Categories=Utility;System;Graphics;
+Exec=com.github.kicsyromy.tapet
+Icon=com.github.kicsyromy.tapet
+Terminal=false
+Type=Application
+Keywords=Tapet;Wallpaper;
