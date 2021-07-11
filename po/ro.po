@@ -29,7 +29,7 @@ msgstr "Tapet, Administrator al Imaginilor de Fundal"
 #: data/tapet.desktop.in:5 data/tapet.appdata.xml.in:7
 #: data/tapet.appdata.xml.in:9
 msgid "Download and apply wallpapers from popular online sources"
-msgstr "Descarcă și aplică imagini de fundal de pe surse populare online"
+msgstr "Descarca si aplica imagini de fundal de pe surse populare online"
 
 #: data/tapet.desktop.in:10
 msgid "Tapet;Wallpaper;"
