@@ -1,0 +1,36 @@
+# Romanian translations for com.github.kicsyromy.tapet package.
+# Copyright (C) 2021 THE com.github.kicsyromy.tapet'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.kicsyromy.tapet package.
+# Automatically generated, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.kicsyromy.tapet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-11 18:43+0300\n"
+"PO-Revision-Date: 2021-07-11 18:43+0300\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+
+#: data/tapet.desktop.in:3 data/tapet.appdata.xml.in:6
+msgid "Tapet"
+msgstr "Tapet"
+
+#: data/tapet.desktop.in:4
+msgid "Tapet Wallpaper Manager"
+msgstr "Tapet, Administrator al Imaginilor de Fundal"
+
+#: data/tapet.desktop.in:5 data/tapet.appdata.xml.in:7
+#: data/tapet.appdata.xml.in:9
+msgid "Download and apply wallpapers from popular online sources"
+msgstr "Descarcă și aplică imagini de fundal de pe surse populare online"
+
+#: data/tapet.desktop.in:10
+msgid "Tapet;Wallpaper;"
+msgstr "Tapet;Fundal;Imagine Fundal;"
