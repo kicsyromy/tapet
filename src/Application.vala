@@ -41,7 +41,7 @@ public class MyApp : Gtk.Application {
     }
 
     public static int main(string[] args) {
-        debug_break () ;
+        // debug_break () ;
         return new MyApp ().run (args) ;
     }
 
