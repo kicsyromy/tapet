@@ -11,9 +11,11 @@ add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), la
 executable(
     meson.project_name(),
     'src' / 'Application.vala',
-    'src' / 'extern_functions.c',
+    'src' / 'MainWindow.vala',
+    'src' / 'native.c',
     dependencies: [
-        dependency('gtk+-3.0')
+        dependency('gtk+-3.0'),
+        dependency('libhandy-1')
     ],
     install: true
 )

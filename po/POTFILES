@@ -1,3 +1,4 @@
 src/Application.vala
+src/MainWindow.vala
 data/tapet.desktop.in
 data/tapet.appdata.xml.in
