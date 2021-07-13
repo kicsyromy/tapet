@@ -14,7 +14,7 @@ public class TapetApplication : Gtk.Application {
     }
 
     protected override void activate() {
-        add_window (new MainWindow()) ;
+        add_window (new MainWindow ()) ;
     }
 
     public static int main(string[] args) {
@@ -24,5 +24,6 @@ public class TapetApplication : Gtk.Application {
         }) ;
         return app.run (args) ;
     }
+
 }
 

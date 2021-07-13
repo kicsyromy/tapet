@@ -11,6 +11,7 @@ add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), la
 executable(
     meson.project_name(),
     'src' / 'Application.vala',
+    'src' / 'HeaderBar.vala',
     'src' / 'MainWindow.vala',
     'src' / 'native.c',
     dependencies: [
@@ -44,13 +45,13 @@ icon_sizes = ['16', '32', '48', '64', '128']
 foreach i : icon_sizes
     # LoDPI icons
     install_data(
-        'data' / i + '.svg',
+        'data' / 'icons' / i + '.svg',
         install_dir: get_option('datadir') / 'icons' / 'hicolor' / i + 'x' + i / 'apps',
         rename: meson.project_name() + '.svg'
     )
     # HiDPI icons
     install_data(
-        'data' / i + '.svg',
+        'data' / 'icons' / i + '.svg',
         install_dir: get_option('datadir') / 'icons' / 'hicolor' / i + 'x' + i + '@2' / 'apps',
         rename: meson.project_name() + '.svg'
     )
@@ -59,14 +60,14 @@ endforeach
 # Install symbolic version of the icon
 # LoDPI
 install_data(
-    'data' / 'symbolic.svg',
+    'data' / 'icons' / 'symbolic.svg',
     install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'symbolic' / 'apps',
     rename: meson.project_name() + '.svg'
 )
 
 # HiDPI
 install_data(
-    'data' / 'symbolic.svg',
+    'data' / 'icons' / 'symbolic.svg',
     install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'symbolic@2' / 'apps',
     rename: meson.project_name() + '.svg'
 )
@@ -74,14 +75,14 @@ install_data(
 # Install scalable version of the icon
 # LoDPI
 install_data(
-    'data' / 'scalable.svg',
+    'data' / 'icons' / 'scalable.svg',
     install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'scalable' / 'apps',
     rename: meson.project_name() + '.svg'
 )
 
 # HiDPI
 install_data(
-    'data' / 'scalable.svg',
+    'data' / 'icons' / 'scalable.svg',
     install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'scalable@2' / 'apps',
     rename: meson.project_name() + '.svg'
 )

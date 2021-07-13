@@ -4,33 +4,16 @@
  */
 
 public class MainWindow : Hdy.ApplicationWindow {
-    private static int click_counter = 0 ;
-
     public MainWindow () {
-        TapetApplication.debug_break();
-        default_height = 300 ;
-        default_width = 300 ;
+        delete_event.connect (hide_on_delete) ;
+    }
 
-        var button_hello = new Gtk.Button.with_label ("Click me!") ;
-        var button_hello2 = new Gtk.Button.with_label ("Click me!") ;
-
-        var label = new Gtk.Label ("This is a label") ;
-
-        button_hello.clicked.connect (() => {
-            label.label = "The button has been clicked " + (++click_counter).to_string () + " times!" ;
-        }) ;
-
+    construct {
+        default_width = 600 ;
+        default_height = 800 ;
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) ;
 
-        var header_bar = new Hdy.HeaderBar () {
-            title = "Tapet",
-            show_close_button = true
-        } ;
-
-        box.add (header_bar) ;
-        box.add (button_hello) ;
-        box.add (button_hello2) ;
-        box.add (label) ;
+        box.add (new HeaderBar ()) ;
 
         add (box) ;
         show_all () ;
