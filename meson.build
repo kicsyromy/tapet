@@ -14,8 +14,10 @@ executable(
     'src' / 'HeaderBar.vala',
     'src' / 'MainWindow.vala',
     'src' / 'native.c',
+    'src' / 'SettingsDialog.vala',
     dependencies: [
         dependency('gtk+-3.0'),
+        dependency('granite'),
         dependency('libhandy-1')
     ],
     install: true

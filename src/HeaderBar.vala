@@ -9,11 +9,23 @@ public class HeaderBar : Hdy.HeaderBar {
     }
 
     construct {
+        var settings_menuitem = new Gtk.ModelButton () ;
+        settings_menuitem.text = _ ("Settings…") ;
+
+        var about_menuitem = new Gtk.ModelButton () ;
+        about_menuitem.text = _ ("About Tapet") ;
+
         var app_menu_grid = new Gtk.Grid () {
             margin_bottom = 3,
             margin_top = 3,
             orientation = Gtk.Orientation.VERTICAL
         } ;
+        app_menu_grid.add (settings_menuitem) ;
+        app_menu_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_bottom = 3,
+            margin_top = 3
+        }) ;
+        app_menu_grid.add (about_menuitem) ;
         app_menu_grid.show_all () ;
 
         var app_menu_popover = new Gtk.Popover (null) ;
@@ -26,6 +38,10 @@ public class HeaderBar : Hdy.HeaderBar {
         } ;
 
         pack_end (app_menu) ;
+
+        settings_menuitem.clicked.connect (() => {
+            (new SettingsDialog (MainWindow.instance)).show_all () ;
+        }) ;
     }
 
 }
