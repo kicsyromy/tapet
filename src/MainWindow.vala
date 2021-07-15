@@ -7,7 +7,7 @@ public class MainWindow : Hdy.ApplicationWindow {
     internal static MainWindow instance = null ;
 
     public MainWindow () {
-        delete_event.connect (hide_on_delete) ;
+        // delete_event.connect (hide_on_delete) ;
         instance = this ;
     }
 

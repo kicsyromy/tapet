@@ -5,10 +5,17 @@
 
 public class HeaderBar : Hdy.HeaderBar {
     public HeaderBar () {
-        Object (show_close_button: true, title: "Tapet") ;
+        Object (
+            show_close_button: true,
+            has_subtitle: false,
+            spacing: 0,
+            custom_title: new Granite.HeaderLabel ("Tapet")
+            ) ;
     }
 
     construct {
+        get_style_context ().add_class ("default-decoration") ;
+
         var settings_menuitem = new Gtk.ModelButton () ;
         settings_menuitem.text = _ ("Settings…") ;
 
@@ -32,9 +39,12 @@ public class HeaderBar : Hdy.HeaderBar {
         app_menu_popover.add (app_menu_grid) ;
 
         var app_menu = new Gtk.MenuButton () {
-            image = new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR),
+            can_focus = false,
+            image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR),
             popover = app_menu_popover,
-            tooltip_text = _ ("Menu")
+            tooltip_text = _ ("Menu"),
+            valign = Gtk.Align.CENTER,
+            margin_right = 6
         } ;
 
         pack_end (app_menu) ;
