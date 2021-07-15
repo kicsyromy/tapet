@@ -11,51 +11,53 @@ public class SettingsDialog : Granite.Dialog {
     }
 
     construct {
-        modal = true ;
-
         var download_folder_text = _ ("Download folder") ;
 
         var path = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin = 12,
-            valign = Gtk.Align.FILL
+            vexpand = true
         } ;
         var path_label = new Gtk.Label (download_folder_text) {
             margin_right = 100,
-            halign = Gtk.Align.START
+            halign = Gtk.Align.START,
+            valign = Gtk.Align.CENTER
         } ;
         var path_button = new Gtk.Button.with_label (_ ("C:\\")) {
-            halign = Gtk.Align.FILL
+            halign = Gtk.Align.FILL,
+            valign = Gtk.Align.CENTER
         } ;
         path.pack_start (path_label, false, false) ;
         path.pack_end (path_button, true, true) ;
 
         var download_options = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-            margin = 6
+            margin = 6,
+            vexpand = true
         } ;
-        unowned Gtk.StyleContext download_options_ctx = download_options.get_style_context () ;
+        var download_options_ctx = download_options.get_style_context () ;
         download_options_ctx.add_class (Granite.STYLE_CLASS_CARD) ;
         download_options_ctx.add_class (Granite.STYLE_CLASS_ROUNDED) ;
         download_options.add (path) ;
 
         var layout = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             margin = 12,
-            margin_top = 0,
-            valign = Gtk.Align.FILL
+            margin_top = 0
         } ;
         layout.add (download_options) ;
 
-        var ok_button = new Gtk.Button.with_label (_ ("OK")) ;
-        ok_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION) ;
+        ((Gtk.Button)add_button (_ ("Close"), Gtk.ResponseType.OK))
+         .get_style_context ()
+         .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION) ;
 
-        get_content_area ().pack_start (layout, true, true) ;
-        get_content_area ().pack_end (ok_button, false, false) ;
+        var content_area = get_content_area () ;
+        content_area.vexpand = true ;
+        content_area.pack_start (layout) ;
 
         path_button.clicked.connect (() => {
             var location_chooser = new Gtk.FileChooserDialog (download_folder_text, this, Gtk.FileChooserAction.SELECT_FOLDER, _ ("Open"), Gtk.ResponseType.ACCEPT, _ ("Cancel"), Gtk.ResponseType.CANCEL) ;
             location_chooser.show_all () ;
         }) ;
 
-        ok_button.clicked.connect (() => {
+        response.connect ((response_id) => {
             destroy () ;
         }) ;
     }
