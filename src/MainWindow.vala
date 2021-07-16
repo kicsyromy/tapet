@@ -3,7 +3,7 @@
  * SPDX-FileCopyrightText: 2021 Romeo Calotă <mail@romeocalota.me>
  */
 
-public class MainWindow : Hdy.ApplicationWindow {
+internal class MainWindow : Hdy.ApplicationWindow {
     internal static MainWindow instance = null ;
 
     public MainWindow () {

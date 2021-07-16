@@ -1,5 +1,3 @@
-src/Application.vala
-src/HeaderBar.vala
-src/MainWindow.vala
+src/Strings.vala
 data/tapet.desktop.in
 data/tapet.appdata.xml.in

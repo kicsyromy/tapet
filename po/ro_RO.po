@@ -7,24 +7,52 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 18:06+0300\n"
+"POT-Creation-Date: 2021-07-16 14:57+0300\n"
 "PO-Revision-Date: 2021-07-11 18:43+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
-"Language: ro\n"
+"Language: ro_RO\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 
-#: src/HeaderBar.vala:25
+#: src/Strings.vala:9 data/tapet.desktop.in:3 data/tapet.appdata.xml.in:6
+msgid "Tapet"
+msgstr "Tapet"
+
+#. Header Bar
+#: src/Strings.vala:12
 msgid "Menu"
 msgstr "Meniu"
 
-#: data/tapet.desktop.in:3 data/tapet.appdata.xml.in:6
-msgid "Tapet"
-msgstr "Tapet"
+#. Menu Items
+#: src/Strings.vala:15
+msgid "Settings..."
+msgstr "Setări..."
+
+#: src/Strings.vala:16
+msgid "About Tapet"
+msgstr "Despre Tapet"
+
+#. Settings Dialog
+#: src/Strings.vala:19
+msgid "Download folder"
+msgstr "Director descărcări"
+
+#. Miscellaneous
+#: src/Strings.vala:22
+msgid "Open"
+msgstr "Deschide"
+
+#: src/Strings.vala:23
+msgid "Close"
+msgstr "Închide"
+
+#: src/Strings.vala:24
+msgid "Cancel"
+msgstr "Anulează"
 
 #: data/tapet.desktop.in:4
 msgid "Tapet Wallpaper Manager"
@@ -33,7 +61,7 @@ msgstr "Tapet, Administrator al Imaginilor de Fundal"
 #: data/tapet.desktop.in:5 data/tapet.appdata.xml.in:7
 #: data/tapet.appdata.xml.in:9
 msgid "Download and apply wallpapers from popular online sources"
-msgstr "Descarca si aplica imagini de fundal de pe surse populare online"
+msgstr "Descarcă și aplicș imagini de fundal de pe surse populare online"
 
 #: data/tapet.desktop.in:10
 msgid "Tapet;Wallpaper;"

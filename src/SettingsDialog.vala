@@ -3,32 +3,38 @@
  * SPDX-FileCopyrightText: 2021 Romeo Calotă <mail@romeocalota.me>
  */
 
-public class SettingsDialog : Granite.Dialog {
+internal class SettingsDialog : Granite.Dialog {
+
     public SettingsDialog (Gtk.Window parent) {
         transient_for = parent ;
         default_width = 400 ;
         default_height = 300 ;
+
     }
 
     construct {
-        var download_folder_text = _ ("Download folder") ;
-
+        /* Download path */
         var path = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin = 12,
             vexpand = true
         } ;
-        var path_label = new Gtk.Label (download_folder_text) {
+        var path_label = new Gtk.Label (Strings.SETTINGS_DOWNLOAD_FOLDER) {
             margin_right = 100,
             halign = Gtk.Align.START,
             valign = Gtk.Align.CENTER
         } ;
-        var path_button = new Gtk.Button.with_label (_ ("C:\\")) {
+        var path_button = new Gtk.Button () {
             halign = Gtk.Align.FILL,
             valign = Gtk.Align.CENTER
         } ;
+        var path_button_label = new Gtk.Label ("C:\\") ;
+        path_button_label.ellipsize = Pango.EllipsizeMode.MIDDLE ;
+        path_button.child = path_button_label ;
+
         path.pack_start (path_label, false, false) ;
         path.pack_end (path_button, true, true) ;
 
+        /* Download options section */
         var download_options = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             margin = 6,
             vexpand = true
@@ -38,13 +44,15 @@ public class SettingsDialog : Granite.Dialog {
         download_options_ctx.add_class (Granite.STYLE_CLASS_ROUNDED) ;
         download_options.add (path) ;
 
+        /* Main layout */
         var layout = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             margin = 12,
             margin_top = 0
         } ;
         layout.add (download_options) ;
 
-        ((Gtk.Button)add_button (_ ("Close"), Gtk.ResponseType.OK))
+        /* Other interface elements */
+        ((Gtk.Button)add_button (Strings.MISC_CLOSE, Gtk.ResponseType.OK))
          .get_style_context ()
          .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION) ;
 
@@ -52,9 +60,13 @@ public class SettingsDialog : Granite.Dialog {
         content_area.vexpand = true ;
         content_area.pack_start (layout) ;
 
+        /* Event handlers */
         path_button.clicked.connect (() => {
-            var location_chooser = new Gtk.FileChooserDialog (download_folder_text, this, Gtk.FileChooserAction.SELECT_FOLDER, _ ("Open"), Gtk.ResponseType.ACCEPT, _ ("Cancel"), Gtk.ResponseType.CANCEL) ;
-            location_chooser.show_all () ;
+            var file_chooser = new Gtk.FileChooserNative (Strings.SETTINGS_DOWNLOAD_FOLDER, this, Gtk.FileChooserAction.SELECT_FOLDER, Strings.MISC_OPEN, Strings.MISC_CANCEL) ;
+            var result = file_chooser.run () ;
+            if( result == Gtk.ResponseType.ACCEPT ){
+                path_button_label.set_text (file_chooser.get_file ().get_parse_name ()) ;
+            }
         }) ;
 
         response.connect ((response_id) => {

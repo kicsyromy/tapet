@@ -15,6 +15,8 @@ executable(
     'src' / 'MainWindow.vala',
     'src' / 'native.c',
     'src' / 'SettingsDialog.vala',
+    'src' / 'Strings.vala',
+    'src' / 'Utilities.vala',
     dependencies: [
         dependency('gtk+-3.0'),
         dependency('granite'),

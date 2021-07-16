@@ -8,7 +8,7 @@ public class TapetApplication : Gtk.Application {
 
     public TapetApplication () {
         Object (
-            application_id: "com.github.kicsyromy.tapet",
+            application_id: Strings.APPLICATION_ID,
             flags : ApplicationFlags.FLAGS_NONE
             ) ;
     }
@@ -22,6 +22,7 @@ public class TapetApplication : Gtk.Application {
         app.startup.connect (() => {
             Hdy.init () ;
         }) ;
+
         return app.run (args) ;
     }
 

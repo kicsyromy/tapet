@@ -3,13 +3,13 @@
  * SPDX-FileCopyrightText: 2021 Romeo Calotă <mail@romeocalota.me>
  */
 
-public class HeaderBar : Hdy.HeaderBar {
+internal class HeaderBar : Hdy.HeaderBar {
     public HeaderBar () {
         Object (
             show_close_button: true,
             has_subtitle: false,
             spacing: 0,
-            custom_title: new Granite.HeaderLabel ("Tapet")
+            custom_title: new Granite.HeaderLabel (Strings.APPLICATION_NAME)
             ) ;
     }
 
@@ -17,10 +17,10 @@ public class HeaderBar : Hdy.HeaderBar {
         get_style_context ().add_class ("default-decoration") ;
 
         var settings_menuitem = new Gtk.ModelButton () ;
-        settings_menuitem.text = _ ("Settings…") ;
+        settings_menuitem.text = Strings.MENU_ITEM_SETTINGS ;
 
         var about_menuitem = new Gtk.ModelButton () ;
-        about_menuitem.text = _ ("About Tapet") ;
+        about_menuitem.text = Strings.MENU_ITEM_ABOUT ;
 
         var app_menu_grid = new Gtk.Grid () {
             margin_bottom = 3,
@@ -42,7 +42,7 @@ public class HeaderBar : Hdy.HeaderBar {
             can_focus = false,
             image = new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR),
             popover = app_menu_popover,
-            tooltip_text = _ ("Menu"),
+            tooltip_text = Strings.HEADER_BAR_MENU_TOOLTIP,
             valign = Gtk.Align.CENTER,
             margin_right = 6
         } ;
