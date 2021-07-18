@@ -25,24 +25,21 @@ public class TapetApplication : Gtk.Application {
     public static int main(string[] args) {
         instance = new TapetApplication () ;
 
+        TapetError.quark = Quark.from_string (Strings.APPLICATION_ERROR_QUARK) ;
+
         instance.image_providers.add (new BingImageProvider ()) ;
-        instance.cache_dir = Environment.get_home_dir () + "/.cache/" + Strings.APPLICATION_ID ;
+
+        try {
+            instance.cache_dir = Environment.get_user_cache_dir () + "/" + Strings.APPLICATION_ID ;
+            File.new_for_path (instance.cache_dir).make_directory () ;
+        } catch ( Error error ) {
+            if( error.code != IOError.EXISTS ){
+                printerr ("Failed to create cache directory: %d: %s\n", error.code, error.message) ;
+            }
+        }
 
         instance.startup.connect (() => {
             Hdy.init () ;
-
-            instance.image_providers.data[0].get_image_urls.begin (8, ImageQuality.HIGH, (_, res) => {
-                try {
-                    var image_urls = instance.image_providers.data[0].get_image_urls.end (res) ;
-
-                    foreach( var url in image_urls ){
-                        print ("%s\n", url) ;
-                    }
-                } catch ( Error error ) {
-                    printerr ("Failed to get image urls: %d: %s\n", error.code, error.message) ;
-                }
-
-            }) ;
         }) ;
 
         return instance.run (args) ;

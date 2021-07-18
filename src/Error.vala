@@ -7,9 +7,9 @@ using GLib ;
 
 internal class TapetError {
     public class Code {
-        public const int SERVER_BAD_RESPONSE = 10000 ;
-        public const int IMAGE_PROVIDER_BING_BAD_IMAGE_URL = 10001 ;
+        public const int SERVER_BAD_RESPONSE = 100 ;
+        public const int IMAGE_PROVIDER_BING_BAD_IMAGE_URL = 101 ;
     }
 
-    public static Quark quark = Quark.from_string (Strings.APPLICATION_ERROR_QUARK) ;
+    public static Quark quark ;
 }

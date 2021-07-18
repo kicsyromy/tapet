@@ -17,6 +17,7 @@ internal class MainWindow : Hdy.ApplicationWindow {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) ;
 
         box.add (new HeaderBar ()) ;
+        box.add (new Content ()) ;
 
         add (box) ;
         show_all () ;

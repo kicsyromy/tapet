@@ -6,7 +6,7 @@
 using GLib ;
 
 internal class Utilities {
-    public static async void download_async(string url, OutputStream output_stream) throws Error {
+    public static async string download_async(string url, OutputStream output_stream) throws Error {
         var session = new Soup.Session () ;
         var msg = new Soup.Message ("GET", url) ;
 
@@ -19,9 +19,11 @@ internal class Utilities {
             throw error ;
         }
 
+        var content_type = msg.response_headers.get_content_type (null) ;
+
         if( msg.status_code != 200 ){
             printerr ("Failed to download file from %s: %u: %s\n", url, msg.status_code, msg.reason_phrase) ;
-            throw new Error (Quark.from_string (Strings.APPLICATION_ID), 10001, "Network failure") ;
+            throw new Error (TapetError.quark, TapetError.Code.SERVER_BAD_RESPONSE, "Server responded with: %u %s", msg.status_code, msg.reason_phrase) ;
         }
 
         try {
@@ -31,6 +33,8 @@ internal class Utilities {
             printerr ("Failed to download from HTTP stream: %d: %s\n", error.code, error.message) ;
             throw error ;
         }
+
+        return content_type ;
     }
 
 }

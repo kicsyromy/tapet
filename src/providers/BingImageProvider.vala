@@ -8,6 +8,14 @@ using GLib ;
 internal class BingImageProvider : ImageProvider, Object {
     public const int MAX_IMAGE_COUNT = 8 ;
 
+    public string name() {
+        return "Bing" ;
+    }
+
+    public int max_image_count() {
+        return MAX_IMAGE_COUNT ;
+    }
+
     public async string[] get_image_urls(int count, ImageQuality quality = ImageQuality.NATIVE) throws Error {
         if( count > MAX_IMAGE_COUNT ){
             count = MAX_IMAGE_COUNT ;
@@ -16,13 +24,18 @@ internal class BingImageProvider : ImageProvider, Object {
         var bing_url = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=" + count.to_string () + "&mkt=en-US" ;
         var output_stream = new MemoryOutputStream (null) ;
 
+        string content_type = null ;
+
         try {
-            yield Utilities.download_async(bing_url, output_stream) ;
+            content_type = yield Utilities.download_async(bing_url, output_stream) ;
 
             output_stream.close () ;
         } catch ( Error error ) {
-            printerr ("Failed to download image list from %s: %d: %s\n", bing_url, error.code, error.message) ;
             throw error ;
+        }
+
+        if( content_type != "application/json" ){
+            throw new Error (TapetError.quark, TapetError.Code.SERVER_BAD_RESPONSE, "Server responded with an invalid content type; expected 'application/json' got '%s'", content_type) ;
         }
 
         var data = output_stream.steal_data () ;
@@ -31,7 +44,6 @@ internal class BingImageProvider : ImageProvider, Object {
         try {
             parser.load_from_data ((string) data, (ssize_t) data.length) ;
         } catch ( Error error ) {
-            printerr ("Failed to parse json: %d: %s\n", error.code, error.message) ;
             throw error ;
         }
 
@@ -68,12 +80,41 @@ internal class BingImageProvider : ImageProvider, Object {
             result[it] = final_url ;
         }
 
-        // var file_stream = File.new_for_path (Application.cache_dir).create (FileCreateFlags.NONE) ;
-        // Utilities.download_async.begin ("http://cdn.onlinewebfonts.com/svg/img_410.png", file_stream, (obj, res) => {
-        // Utilities.download_async.end (res) ;
-        // }) ;
-
         return result ;
+    }
+
+    public async string save(string url, string path, string prefix) throws Error {
+        var file_name = url.split ("?id=")[1] ;
+        file_name = path + "/" + prefix + file_name ;
+
+        var file = File.new_for_path (file_name) ;
+        FileOutputStream output_stream = null ;
+        try {
+            output_stream = yield file.create_async(GLib.FileCreateFlags.NONE) ;
+
+        } catch ( IOError error ) {
+            if( error.code == IOError.EXISTS ){
+                yield file.delete_async() ;
+
+                try {
+                    output_stream = yield file.create_async(GLib.FileCreateFlags.NONE) ;
+
+                } catch ( Error errro ) {
+                    throw error ;
+                }
+            }
+        }
+
+        string content_type = null ;
+        try {
+            content_type = yield Utilities.download_async(url, output_stream) ;
+
+            output_stream.close () ;
+        } catch ( Error error ) {
+            throw error ;
+        }
+
+        return file_name ;
     }
 
 }
