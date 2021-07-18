@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-16 14:57+0300\n"
+"POT-Creation-Date: 2021-07-18 10:43+0300\n"
 "PO-Revision-Date: 2021-07-11 18:43+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -61,7 +61,7 @@ msgstr "Tapet, Administrator al Imaginilor de Fundal"
 #: data/tapet.desktop.in:5 data/tapet.appdata.xml.in:7
 #: data/tapet.appdata.xml.in:9
 msgid "Download and apply wallpapers from popular online sources"
-msgstr "Descarcă și aplicș imagini de fundal de pe surse populare online"
+msgstr "Descarcă și aplică imagini de fundal de pe surse populare online"
 
 #: data/tapet.desktop.in:10
 msgid "Tapet;Wallpaper;"

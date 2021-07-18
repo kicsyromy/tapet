@@ -1,5 +1,9 @@
 sources = [
+    'providers' / 'BingImageProvider.vala',
+    'providers' / 'ImageProvider.vala',
     'Application.vala',
+    'Content.vala',
+    'Error.vala',
     'HeaderBar.vala',
     'MainWindow.vala',
     'SettingsDialog.vala',
@@ -10,7 +14,9 @@ sources = [
 dependencies = [
     dependency('gtk+-3.0'),
     dependency('granite'),
-    dependency('libhandy-1')
+    dependency('libhandy-1'),
+    dependency('libsoup-2.4'),
+    dependency('json-glib-1.0')
 ]
 
 executable(

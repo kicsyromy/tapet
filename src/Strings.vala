@@ -7,6 +7,7 @@ internal class Strings {
     /* Application */
     public const string APPLICATION_ID = "com.github.kicsyromy.tapet" ;
     public const string APPLICATION_NAME = _ ("Tapet") ;
+    public const string APPLICATION_ERROR_QUARK = APPLICATION_ID ;
 
     /* Header Bar */
     public const string HEADER_BAR_MENU_TOOLTIP = _ ("Menu") ;
