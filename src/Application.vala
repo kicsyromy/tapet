@@ -4,8 +4,6 @@
  */
 
 public class TapetApplication : Gtk.Application {
-    public extern static void debug_break() ;
-
     public TapetApplication () {
         Object (
             application_id: Strings.APPLICATION_ID,
