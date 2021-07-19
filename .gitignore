@@ -73,4 +73,5 @@ sdkconfig.old
 
 # Flatpak
 .flatpak-builder
+flatpak/
 

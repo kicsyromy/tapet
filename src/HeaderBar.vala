@@ -27,6 +27,7 @@ internal class HeaderBar : Hdy.HeaderBar {
             margin_top = 3,
             orientation = Gtk.Orientation.VERTICAL
         } ;
+
         app_menu_grid.add (settings_menuitem) ;
         app_menu_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_bottom = 3,
