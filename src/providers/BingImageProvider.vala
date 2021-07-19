@@ -12,11 +12,11 @@ internal class BingImageProvider : ImageProvider, Object {
         return "Bing" ;
     }
 
-    public int max_image_count() {
+    public int get_max_image_count() {
         return MAX_IMAGE_COUNT ;
     }
 
-    public async string[] get_image_urls(int count, ImageQuality quality = ImageQuality.NATIVE) throws Error {
+    public async string[] get_image_ids(int count) throws Error {
         if( count > MAX_IMAGE_COUNT ){
             count = MAX_IMAGE_COUNT ;
         }
@@ -62,25 +62,29 @@ internal class BingImageProvider : ImageProvider, Object {
             }
 
             string extension = "." + url_parts[2].split (".")[1] ;
-            string quality_string = "" ;
-            switch( quality ){
-            case ImageQuality.NATIVE:
-            case ImageQuality.HIGH:
-                quality_string = "_UHD" ;
-                break ;
-            case ImageQuality.MEDIUM:
-                quality_string = "_1920x1080" ;
-                break ;
-            case ImageQuality.LOW:
-                quality_string = "_1280x720" ;
-                break ;
-            }
-
-            var final_url = "https://www.bing.com" + url_parts[0] + "_" + url_parts[1] + quality_string + extension ;
-            result[it] = final_url ;
+            var id = url_parts[0] + "_" + url_parts[1] + "_<resolution>" + extension ;
+            result[it] = id ;
         }
 
         return result ;
+    }
+
+    public async string get_image_url(string id, ImageQuality quality) throws Error {
+        string quality_string = "" ;
+        switch( quality ){
+        case ImageQuality.NATIVE:
+        case ImageQuality.HIGH:
+            quality_string = "UHD" ;
+            break ;
+        case ImageQuality.MEDIUM:
+            quality_string = "1920x1080" ;
+            break ;
+        case ImageQuality.LOW:
+            quality_string = "1280x720" ;
+            break ;
+        }
+
+        return "https://www.bing.com" + id.replace ("<resolution>", quality_string) ;
     }
 
     public async string save(string url, string path, string prefix) throws Error {

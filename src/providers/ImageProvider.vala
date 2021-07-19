@@ -17,9 +17,10 @@ internal interface ImageProvider : Object {
     public const string[] SUPPORTED_IMAGE_EXTENSIONS = { ".jpg", ".png", ".bmp" } ;
 
     public abstract string name() ;
-    public abstract int max_image_count() ;
+    public abstract int get_max_image_count() ;
 
-    public abstract async string[] get_image_urls(int count, ImageQuality quality = ImageQuality.NATIVE) throws Error ;
+    public abstract async string[] get_image_ids(int count) throws Error ;
+    public abstract async string get_image_url(string id, ImageQuality quality = ImageQuality.NATIVE) throws Error ;
     public abstract async string save(string url, string path, string prefix) throws Error ;
 
 }

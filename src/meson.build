@@ -1,3 +1,5 @@
+cc = meson.get_compiler('c')
+
 sources = [
     'providers' / 'BingImageProvider.vala',
     'providers' / 'ImageProvider.vala',
@@ -16,7 +18,8 @@ dependencies = [
     dependency('granite'),
     dependency('libhandy-1'),
     dependency('libsoup-2.4'),
-    dependency('json-glib-1.0')
+    dependency('json-glib-1.0'),
+    cc.find_library('m', required : true)
 ]
 
 executable(

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-18 10:43+0300\n"
+"POT-Creation-Date: 2021-07-19 11:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,34 +22,43 @@ msgid "Tapet"
 msgstr ""
 
 #. Header Bar
-#: src/Strings.vala:12
+#: src/Strings.vala:13
 msgid "Menu"
 msgstr ""
 
 #. Menu Items
-#: src/Strings.vala:15
+#: src/Strings.vala:16
 msgid "Settings..."
 msgstr ""
 
-#: src/Strings.vala:16
+#: src/Strings.vala:17
 msgid "About Tapet"
 msgstr ""
 
 #. Settings Dialog
-#: src/Strings.vala:19
+#: src/Strings.vala:20
 msgid "Download folder"
 msgstr ""
 
-#. Miscellaneous
-#: src/Strings.vala:22
-msgid "Open"
-msgstr ""
-
+#. Main Content
 #: src/Strings.vala:23
-msgid "Close"
+msgid "Set as wallpaper"
 msgstr ""
 
 #: src/Strings.vala:24
+msgid "Save as..."
+msgstr ""
+
+#. Miscellaneous
+#: src/Strings.vala:27
+msgid "Open"
+msgstr ""
+
+#: src/Strings.vala:28
+msgid "Close"
+msgstr ""
+
+#: src/Strings.vala:29
 msgid "Cancel"
 msgstr ""
 

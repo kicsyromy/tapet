@@ -19,6 +19,10 @@ internal class Strings {
     /* Settings Dialog */
     public const string SETTINGS_DOWNLOAD_FOLDER = _ ("Download folder") ;
 
+    /* Main Content */
+    public const string CONTENT_POPOVER_SET_BACKGROUND = _ ("Set as wallpaper") ;
+    public const string CONTENT_POPOVER_SAVE_AS = _ ("Save as...") ;
+
     /* Miscellaneous */
     public const string MISC_OPEN = _ ("Open") ;
     public const string MISC_CLOSE = _ ("Close") ;
