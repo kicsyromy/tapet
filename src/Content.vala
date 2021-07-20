@@ -56,7 +56,7 @@ internal class Content : Gtk.ScrolledWindow {
         show_all () ;
 
         /* TODO: Take scaling into account somehow */
-        load_thumbnails.begin (flow_box, 600, (_, res) => {
+        load_thumbnails.begin (flow_box, 500, (_, res) => {
             load_thumbnails.end (res) ;
         }) ;
 
@@ -123,8 +123,7 @@ internal class Content : Gtk.ScrolledWindow {
 
                         var event_box = new Gtk.EventBox () {
                             can_focus = false,
-                            margin = 12,
-                            margin_bottom = 0,
+                            margin = 6,
                             hexpand = false,
                             vexpand = false,
                             halign = Gtk.Align.CENTER,

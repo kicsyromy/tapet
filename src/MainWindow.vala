@@ -12,7 +12,7 @@ internal class MainWindow : Hdy.ApplicationWindow {
     }
 
     construct {
-        default_width = 1300 ;
+        default_width = 1036 ;
         default_height = 800 ;
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) ;
 
