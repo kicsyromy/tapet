@@ -19,13 +19,41 @@ finish-args:
   - '--share=ipc'
   - '--socket=fallback-x11'
   - '--socket=wayland'
+  - '--share=network'
+  - '--filesystem=~/.cache/com.github.kicsyromy.tapet:create'
+  - '--filesystem=xdg-run/dconf'
+  - '--filesystem=~/.config/dconf'
+  - '--talk-name=ca.desrt.dconf'
+  - '--env=DCONF_USER_CONFIG_DIR=.config/dconf'
 
 # This section is where you list all the source code required to build your app.
 # If we had external dependencies that weren't included in our SDK, we would list
 # them here.
 modules:
+  - name: dconf
+    buildsystem: meson
+    config-opts:
+      - -Dbuild_man=false
+      - -Dbash_completion=false
+      - -Dman=false
+      - -Dgtk_doc=false
+      - -Dvapi=true
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/dconf/0.40/dconf-0.40.0.tar.xz
+        sha256: cf7f22a4c9200421d8d3325c5c1b8b93a36843650c9f95d6451e20f0bcb24533
+      - type: patch
+        path: dconf-override.patch
+
+  # - name: granite
+  #   buildsystem: meson
+  #   sources:
+  #     - type: archive
+  #       url: https://github.com/elementary/granite/archive/refs/tags/6.1.0.tar.gz
+  #       sha256: 0b69ffdec1d0b61704d65bb82f8415b61f733b21eef3c7c6844f30b50791e6e9
+
   - name: tapet
     buildsystem: meson
     sources:
       - type: dir
-        path: .
+        path: ..

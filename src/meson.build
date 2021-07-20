@@ -10,6 +10,7 @@ sources = [
     'MainWindow.vala',
     'SettingsDialog.vala',
     'Strings.vala',
+    'SystemSettings.vala',
     'Utilities.vala',
 ]
 
@@ -19,6 +20,7 @@ dependencies = [
     dependency('libhandy-1'),
     dependency('libsoup-2.4'),
     dependency('json-glib-1.0'),
+    dependency('dconf'),
     cc.find_library('m', required : true)
 ]
 

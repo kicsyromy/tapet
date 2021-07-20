@@ -72,6 +72,4 @@ sdkconfig.old
 .vscode/
 
 # Flatpak
-.flatpak-builder
-flatpak/
-
+.flatpak-builder/

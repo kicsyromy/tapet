@@ -19,8 +19,8 @@ internal interface ImageProvider : Object {
     public abstract string name() ;
     public abstract int get_max_image_count() ;
 
-    public abstract async string[] get_image_ids(int count) throws Error ;
-    public abstract async string get_image_url(string id, ImageQuality quality = ImageQuality.NATIVE) throws Error ;
-    public abstract async string save(string url, string path, string prefix) throws Error ;
+    public abstract async string[] get_image_ids_async(int count) throws Error ;
+    public abstract async string get_image_url_async(string id, ImageQuality quality = ImageQuality.NATIVE) throws Error ;
+    public abstract async string save_async(string url, string path, string prefix, bool overwrite = true) throws Error ;
 
 }

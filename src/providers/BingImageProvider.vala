@@ -16,7 +16,7 @@ internal class BingImageProvider : ImageProvider, Object {
         return MAX_IMAGE_COUNT ;
     }
 
-    public async string[] get_image_ids(int count) throws Error {
+    public async string[] get_image_ids_async(int count) throws Error {
         if( count > MAX_IMAGE_COUNT ){
             count = MAX_IMAGE_COUNT ;
         }
@@ -69,7 +69,7 @@ internal class BingImageProvider : ImageProvider, Object {
         return result ;
     }
 
-    public async string get_image_url(string id, ImageQuality quality) throws Error {
+    public async string get_image_url_async(string id, ImageQuality quality) throws Error {
         string quality_string = "" ;
         switch( quality ){
         case ImageQuality.NATIVE:
@@ -87,7 +87,7 @@ internal class BingImageProvider : ImageProvider, Object {
         return "https://www.bing.com" + id.replace ("<resolution>", quality_string) ;
     }
 
-    public async string save(string url, string path, string prefix) throws Error {
+    public async string save_async(string url, string path, string prefix, bool overwrite) throws Error {
         var file_name = url.split ("?id=")[1] ;
         file_name = path + "/" + prefix + file_name ;
 
@@ -98,6 +98,10 @@ internal class BingImageProvider : ImageProvider, Object {
 
         } catch ( IOError error ) {
             if( error.code == IOError.EXISTS ){
+                if( !overwrite ){
+                    return file_name ;
+                }
+
                 yield file.delete_async() ;
 
                 try {

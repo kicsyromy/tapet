@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 11:44+0300\n"
+"POT-Creation-Date: 2021-07-19 12:12+0300\n"
 "PO-Revision-Date: 2021-07-11 18:43+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -22,47 +22,59 @@ msgstr ""
 msgid "Tapet"
 msgstr "Tapet"
 
-#. Header Bar
+#: src/Strings.vala:12
+msgid "Tapet failed to initialize properly"
+msgstr "Inițializarea aplicației a eșuat"
+
 #: src/Strings.vala:13
+msgid "Failed to create cache directory"
+msgstr "Crearea unui director de cache a eșuat"
+
+#. Header Bar
+#: src/Strings.vala:16
 msgid "Menu"
 msgstr "Meniu"
 
 #. Menu Items
-#: src/Strings.vala:16
+#: src/Strings.vala:19
 msgid "Settings..."
 msgstr "Setări..."
 
-#: src/Strings.vala:17
+#: src/Strings.vala:20
 msgid "About Tapet"
 msgstr "Despre Tapet"
 
 #. Settings Dialog
-#: src/Strings.vala:20
+#: src/Strings.vala:23
 msgid "Download folder"
 msgstr "Director descărcări"
 
 #. Main Content
-#: src/Strings.vala:23
+#: src/Strings.vala:26
 #, fuzzy
 msgid "Set as wallpaper"
 msgstr "Aplică ca imagine de fundal"
 
-#: src/Strings.vala:24
+#: src/Strings.vala:27
 msgid "Save as..."
 msgstr "Salvează..."
 
 #. Miscellaneous
-#: src/Strings.vala:27
+#: src/Strings.vala:30
 msgid "Open"
 msgstr "Deschide"
 
-#: src/Strings.vala:28
+#: src/Strings.vala:31
 msgid "Close"
 msgstr "Închide"
 
-#: src/Strings.vala:29
+#: src/Strings.vala:32
 msgid "Cancel"
 msgstr "Anulează"
+
+#: src/Strings.vala:33
+msgid "Quit"
+msgstr "Ieșire"
 
 #: data/tapet.desktop.in:4
 msgid "Tapet Wallpaper Manager"
