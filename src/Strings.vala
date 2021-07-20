@@ -27,6 +27,7 @@ internal class Strings {
     public const string CONTENT_POPOVER_SAVE_AS = _ ("Save as...") ;
 
     public const string CONTENT_WARN_SET_BACKGROUND_FAIL_PRIMARY = _ ("Failed to set wallpaper") ;
+    public const string CONTENT_WARN_SAVE_BACKGROUND_FAIL_PRIMARY = _ ("Failed to save wallpaper") ;
 
     public const string DEBUG_APPLY_WALLPAPER = _ ("Applying wallpaper") ;
 
@@ -34,10 +35,13 @@ internal class Strings {
     public const string WARN_DOWNLOAD_IMAGES = _ ("Failed to download images from provider") ;
 
     /* Miscellaneous */
-    public const string MISC_OPEN = _ ("Open") ;
-    public const string MISC_CLOSE = _ ("Close") ;
-    public const string MISC_CANCEL = _ ("Cancel") ;
-    public const string MISC_QUIT = _ ("Quit") ;
+    public const string MISC_OPEN = _ ("_Open") ;
+    public const string MISC_SAVE = _ ("_Save") ;
+    public const string MISC_CLOSE = _ ("_Close") ;
+    public const string MISC_CANCEL = _ ("_Cancel") ;
+    public const string MISC_QUIT = _ ("_Quit") ;
+
+    public const string MISC_IMAGE_FILTER_NAME = _ ("Image") ;
 
     public const string MISC_BACKGROUND_SCHEMA = "org.gnome.desktop.background" ;
     public const string MISC_BACKGROUND_PICTURE_URI_KEY = "/org/gnome/desktop/background/picture-uri" ;

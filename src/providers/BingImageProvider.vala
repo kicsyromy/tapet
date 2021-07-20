@@ -16,6 +16,26 @@ internal class BingImageProvider : ImageProvider, Object {
         return MAX_IMAGE_COUNT ;
     }
 
+    public async string ? get_title (string id) throws Error {
+        return id.split ("|")[1] ;
+    }
+
+    public async string ? get_mime_type_async (string id) throws Error {
+        id = id.split ("|")[0] ;
+        for( int i = 0 ; i < ImageProvider.SUPPORTED_IMAGE_EXTENSIONS.length ; ++i ){
+            if( id.has_suffix (ImageProvider.SUPPORTED_IMAGE_EXTENSIONS[i])){
+                return ImageProvider.SUPPORTED_IMAGE_TYPES[i] ;
+            }
+        }
+
+        return null ;
+    }
+
+    public async string ? get_extension_async (string id) throws Error {
+        var split = id.split ("|")[0].split (".") ;
+        return "." + split[split.length - 1] ;
+    }
+
     public async string[] get_image_ids_async(int count) throws Error {
         if( count > MAX_IMAGE_COUNT ){
             count = MAX_IMAGE_COUNT ;
@@ -55,13 +75,14 @@ internal class BingImageProvider : ImageProvider, Object {
             ++it ;
             var image = img.get_object () ;
             var base_url = image.get_string_member ("url") ;
+            var title = image.get_string_member ("title") ;
             var url_parts = base_url.split ("&")[0].split ("_") ;
 
             if( url_parts.length != 3 ){
                 throw new Error (TapetError.quark, TapetError.Code.IMAGE_PROVIDER_BING_BAD_IMAGE_URL, "Invalid image url in response: %s", base_url) ;
             }
 
-            string extension = "." + url_parts[2].split (".")[1] ;
+            string extension = "." + url_parts[2].split (".")[1] + "|" + title ;
             var id = url_parts[0] + "_" + url_parts[1] + "_<resolution>" + extension ;
             result[it] = id ;
         }
@@ -84,10 +105,10 @@ internal class BingImageProvider : ImageProvider, Object {
             break ;
         }
 
-        return "https://www.bing.com" + id.replace ("<resolution>", quality_string) ;
+        return "https://www.bing.com" + id.split ("|")[0].replace ("<resolution>", quality_string) ;
     }
 
-    public async string save_async(string url, string path, string prefix, bool overwrite) throws Error {
+    public async string save_to_file_async(string url, string path, string prefix, bool overwrite) throws Error {
         var file_name = url.split ("?id=")[1] ;
         file_name = path + "/" + prefix + file_name ;
 
@@ -104,25 +125,21 @@ internal class BingImageProvider : ImageProvider, Object {
 
                 yield file.delete_async() ;
 
-                try {
-                    output_stream = yield file.create_async(GLib.FileCreateFlags.NONE) ;
+                output_stream = yield file.create_async(GLib.FileCreateFlags.NONE) ;
 
-                } catch ( Error errro ) {
-                    throw error ;
-                }
             }
         }
 
-        string content_type = null ;
-        try {
-            content_type = yield Utilities.download_async(url, output_stream) ;
+        yield save_to_stream_async(url, output_stream) ;
 
-            output_stream.close () ;
-        } catch ( Error error ) {
-            throw error ;
-        }
+        yield output_stream.close_async() ;
 
         return file_name ;
+    }
+
+    public async void save_to_stream_async(string url, OutputStream output_stream) throws Error {
+        yield Utilities.download_async(url, output_stream) ;
+
     }
 
 }

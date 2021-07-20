@@ -72,6 +72,19 @@ internal class Content : Gtk.ScrolledWindow {
                 }
             }) ;
         }) ;
+
+        save_as_menuitem.clicked.connect (() => {
+            var thumbnail = (Gtk.Image)right_click_menu.get_relative_to () ;
+            var image_source = thumbnails.get (thumbnail) ;
+
+            save_image.begin (thumbnail, image_source, (_, res) => {
+                try {
+                    save_image.end (res) ;
+                } catch ( Error error ) {
+                    TapetApplication.show_warning_dialog (Strings.CONTENT_WARN_SAVE_BACKGROUND_FAIL_PRIMARY, error.message + ".") ;
+                }
+            }) ;
+        }) ;
     }
 
     private void on_image_clicked(Gtk.Widget image, Gdk.EventButton event) {
@@ -90,7 +103,7 @@ internal class Content : Gtk.ScrolledWindow {
 
         var url = yield thumbnail_source.image_provider.get_image_url_async(thumbnail_source.id, ImageQuality.HIGH) ;
 
-        var file_name = yield thumbnail_source.image_provider.save_async(url, TapetApplication.instance.cache_dir, "wp_", false) ;
+        var file_name = yield thumbnail_source.image_provider.save_to_file_async(url, TapetApplication.instance.cache_dir, "wp_", false) ;
 
         var current_background = settings.get_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY).get_string (null) ;
         debug ("%s: %s -> file://%s\n", Strings.DEBUG_APPLY_WALLPAPER, current_background, file_name) ;
@@ -98,6 +111,55 @@ internal class Content : Gtk.ScrolledWindow {
         settings.set_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY, "file://" + file_name) ;
         settings.set_value (Strings.MISC_BACKGROUND_PICTURE_OPTIONS, "zoom") ;
         settings.flush () ;
+    }
+
+    private async void save_image(Gtk.Image thumbnail, ImageSource image_source) throws Error {
+        var file_chooser = new Gtk.FileChooserNative (Strings.CONTENT_POPOVER_SAVE_AS, null, Gtk.FileChooserAction.SAVE, Strings.MISC_SAVE, Strings.MISC_CANCEL) ;
+
+        var extension = yield image_source.image_provider.get_extension_async(image_source.id) ;
+
+        var mime_type = yield image_source.image_provider.get_mime_type_async(image_source.id) ;
+
+        var image_name = yield image_source.image_provider.get_title(image_source.id) ;
+
+        var filter = new Gtk.FileFilter () ;
+        var filter_text = Strings.MISC_IMAGE_FILTER_NAME ;
+        filter.set_filter_name (filter_text + "(" + extension + ")") ;
+        filter.add_mime_type (mime_type) ;
+
+        file_chooser.add_filter (filter) ;
+        file_chooser.set_current_name (image_name + extension) ;
+
+        var result = file_chooser.run () ;
+        if( result == Gtk.ResponseType.ACCEPT ){
+            MainWindow.instance.set_sensitive (false) ;
+            var file = file_chooser.get_file () ;
+
+            try {
+                FileOutputStream output_stream = null ;
+                try {
+                    output_stream = yield file.create_async(GLib.FileCreateFlags.NONE) ;
+
+                } catch ( IOError error ) {
+                    if( error.code == IOError.EXISTS ){
+                        yield file.delete_async() ;
+
+                        output_stream = yield file.create_async(GLib.FileCreateFlags.NONE) ;
+
+                    }
+                } finally {
+                }
+
+                var url = yield image_source.image_provider.get_image_url_async(image_source.id, ImageQuality.HIGH) ;
+
+                yield image_source.image_provider.save_to_stream_async(url, output_stream) ;
+
+                yield output_stream.close_async() ;
+
+            } finally {
+                MainWindow.instance.set_sensitive (true) ;
+            }
+        }
     }
 
     private async void load_thumbnails(Gtk.Container container, int target_width) {
