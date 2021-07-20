@@ -92,7 +92,8 @@ internal class Content : Gtk.ScrolledWindow {
 
         var file_name = yield thumbnail_source.image_provider.save_async(url, TapetApplication.instance.cache_dir, "wp_", false) ;
 
-        print ("Changing wallpaper from %s to file://%s\n", settings.get_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY).get_string (null), file_name) ;
+        var current_background = settings.get_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY).get_string (null) ;
+        debug ("%s: %s -> file://%s\n", Strings.DEBUG_APPLY_WALLPAPER, current_background, file_name) ;
 
         settings.set_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY, "file://" + file_name) ;
         settings.set_value (Strings.MISC_BACKGROUND_PICTURE_OPTIONS, "zoom") ;
@@ -143,11 +144,11 @@ internal class Content : Gtk.ScrolledWindow {
                             return true ;
                         }) ;
                     } catch ( Error error ) {
-                        printerr ("Failed to download image from provider '%s': %d: %s\n", image_provider.name (), error.code, error.message) ;
+                        warning ("%s %s: '%s': %d: %s\n", Strings.WARN_DOWNLOAD_IMAGE, id, image_provider.name (), error.code, error.message) ;
                     }
                 }
             } catch ( Error error ) {
-                printerr ("Failed to download images from provider '%s': %d: %s\n", image_provider.name (), error.code, error.message) ;
+                warning ("%s %s: %d: %s\n", Strings.WARN_DOWNLOAD_IMAGES, image_provider.name (), error.code, error.message) ;
             }
 
         }

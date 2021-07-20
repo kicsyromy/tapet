@@ -28,6 +28,11 @@ internal class Strings {
 
     public const string CONTENT_WARN_SET_BACKGROUND_FAIL_PRIMARY = _ ("Failed to set wallpaper") ;
 
+    public const string DEBUG_APPLY_WALLPAPER = _ ("Applying wallpaper") ;
+
+    public const string WARN_DOWNLOAD_IMAGE = _ ("Failed to download image from provider") ;
+    public const string WARN_DOWNLOAD_IMAGES = _ ("Failed to download images from provider") ;
+
     /* Miscellaneous */
     public const string MISC_OPEN = _ ("Open") ;
     public const string MISC_CLOSE = _ ("Close") ;
@@ -37,4 +42,6 @@ internal class Strings {
     public const string MISC_BACKGROUND_SCHEMA = "org.gnome.desktop.background" ;
     public const string MISC_BACKGROUND_PICTURE_URI_KEY = "/org/gnome/desktop/background/picture-uri" ;
     public const string MISC_BACKGROUND_PICTURE_OPTIONS = "/org/gnome/desktop/background/picture-options" ;
+
+    public const string ERROR_MESSAGE_BAD_RESPONSE = _ ("Download failed, server responded with") ;
 }

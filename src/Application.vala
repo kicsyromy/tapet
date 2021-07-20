@@ -62,9 +62,9 @@ public class TapetApplication : Gtk.Application {
             File.new_for_path (instance.cache_dir).make_directory () ;
         } catch ( Error error ) {
             if( error.code != IOError.EXISTS ){
-                printerr ("Failed to create cache directory: %d: %s\n", error.code, error.message) ;
-                string secondary_text = Strings.APPLICATION_ERROR_CACHE_CREATE ;
-                show_fatal_dialog (Strings.APPLICATION_ERROR_INIT_FAILED, secondary_text + ". " + error.message + ".") ;
+                critical ("%s: %d: %s\n", Strings.APPLICATION_ERROR_CACHE_CREATE, error.code, error.message) ;
+                string error_cache_create_msg = Strings.APPLICATION_ERROR_CACHE_CREATE ;
+                show_fatal_dialog (Strings.APPLICATION_ERROR_INIT_FAILED, error_cache_create_msg + ". " + error.message + ".") ;
             }
         }
     }

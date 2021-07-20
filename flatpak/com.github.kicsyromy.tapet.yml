@@ -23,7 +23,6 @@ finish-args:
   - '--filesystem=~/.cache/com.github.kicsyromy.tapet:create'
   - '--filesystem=xdg-run/dconf'
   - '--filesystem=~/.config/dconf'
-  - '--talk-name=ca.desrt.dconf'
   - '--env=DCONF_USER_CONFIG_DIR=.config/dconf'
 
 # This section is where you list all the source code required to build your app.
