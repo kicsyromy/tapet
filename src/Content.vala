@@ -8,7 +8,7 @@ using GLib ;
 internal class Content : Gtk.ScrolledWindow {
 
     private class ImageSource {
-        public string id ;
+        public ImageMetadata metadata ;
         public unowned ImageProvider image_provider ;
     }
 
@@ -101,9 +101,7 @@ internal class Content : Gtk.ScrolledWindow {
     private async void set_background(SystemSettings settings, Gtk.Image thumbnail) throws Error {
         var thumbnail_source = thumbnails.get (thumbnail) ;
 
-        var url = yield thumbnail_source.image_provider.get_image_url_async(thumbnail_source.id, ImageQuality.HIGH) ;
-
-        var file_name = yield thumbnail_source.image_provider.save_to_file_async(url, TapetApplication.instance.cache_dir, "wp_", false) ;
+        var file_name = yield thumbnail_source.image_provider.save_to_file_async(thumbnail_source.metadata, ImageQuality.HIGH, TapetApplication.instance.cache_dir, "wp_", false) ;
 
         var current_background = settings.get_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY).get_string (null) ;
         debug ("%s: %s -> file://%s\n", Strings.DEBUG_APPLY_WALLPAPER, current_background, file_name) ;
@@ -116,19 +114,13 @@ internal class Content : Gtk.ScrolledWindow {
     private async void save_image(Gtk.Image thumbnail, ImageSource image_source) throws Error {
         var file_chooser = new Gtk.FileChooserNative (Strings.CONTENT_POPOVER_SAVE_AS, null, Gtk.FileChooserAction.SAVE, Strings.MISC_SAVE, Strings.MISC_CANCEL) ;
 
-        var extension = yield image_source.image_provider.get_extension_async(image_source.id) ;
-
-        var mime_type = yield image_source.image_provider.get_mime_type_async(image_source.id) ;
-
-        var image_name = yield image_source.image_provider.get_title(image_source.id) ;
-
         var filter = new Gtk.FileFilter () ;
         var filter_text = Strings.MISC_IMAGE_FILTER_NAME ;
-        filter.set_filter_name (filter_text + "(" + extension + ")") ;
-        filter.add_mime_type (mime_type) ;
+        filter.set_filter_name (filter_text + "(" + image_source.metadata.extension + ")") ;
+        filter.add_mime_type (image_source.metadata.mime_type) ;
 
         file_chooser.add_filter (filter) ;
-        file_chooser.set_current_name (image_name + extension) ;
+        file_chooser.set_current_name (image_source.metadata.title + image_source.metadata.extension) ;
 
         var result = file_chooser.run () ;
         if( result == Gtk.ResponseType.ACCEPT ){
@@ -150,9 +142,7 @@ internal class Content : Gtk.ScrolledWindow {
                 } finally {
                 }
 
-                var url = yield image_source.image_provider.get_image_url_async(image_source.id, ImageQuality.HIGH) ;
-
-                yield image_source.image_provider.save_to_stream_async(url, output_stream) ;
+                yield image_source.image_provider.save_to_stream_async(image_source.metadata, ImageQuality.HIGH, output_stream) ;
 
                 yield output_stream.close_async() ;
 
@@ -167,13 +157,11 @@ internal class Content : Gtk.ScrolledWindow {
 
         foreach( var image_provider in image_providers ){
             try {
-                var ids = yield image_provider.get_image_ids_async(image_provider.get_max_image_count ()) ;
+                var metadatas = yield image_provider.get_image_metadata_async(image_provider.get_max_image_count ()) ;
 
-                foreach( var id in ids ){
+                foreach( var metadata in metadatas ){
                     try {
-                        var url = yield image_provider.get_image_url_async(id, ImageQuality.LOW) ;
-
-                        var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield Utilities.get_stream_async (url)) ;
+                        var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield image_provider.get_input_stream_async (metadata, ImageQuality.LOW)) ;
 
                         var ratio = (double) target_width / pixbuf.width ;
                         var target_height = pixbuf.height * ratio ;
@@ -197,7 +185,7 @@ internal class Content : Gtk.ScrolledWindow {
 
                         container.add (event_box) ;
                         thumbnails.insert (image, new ImageSource () {
-                            id = id,
+                            metadata = metadata,
                             image_provider = image_provider
                         }) ;
 
@@ -206,7 +194,7 @@ internal class Content : Gtk.ScrolledWindow {
                             return true ;
                         }) ;
                     } catch ( Error error ) {
-                        warning ("%s %s: '%s': %d: %s\n", Strings.WARN_DOWNLOAD_IMAGE, id, image_provider.name (), error.code, error.message) ;
+                        warning ("%s %s: '%s': %d: %s\n", Strings.WARN_DOWNLOAD_IMAGE, metadata.id, image_provider.name (), error.code, error.message) ;
                     }
                 }
             } catch ( Error error ) {

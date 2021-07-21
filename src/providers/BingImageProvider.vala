@@ -16,27 +16,7 @@ internal class BingImageProvider : ImageProvider, Object {
         return MAX_IMAGE_COUNT ;
     }
 
-    public async string ? get_title (string id) throws Error {
-        return id.split ("|")[1] ;
-    }
-
-    public async string ? get_mime_type_async (string id) throws Error {
-        id = id.split ("|")[0] ;
-        for( int i = 0 ; i < ImageProvider.SUPPORTED_IMAGE_EXTENSIONS.length ; ++i ){
-            if( id.has_suffix (ImageProvider.SUPPORTED_IMAGE_EXTENSIONS[i])){
-                return ImageProvider.SUPPORTED_IMAGE_TYPES[i] ;
-            }
-        }
-
-        return null ;
-    }
-
-    public async string ? get_extension_async (string id) throws Error {
-        var split = id.split ("|")[0].split (".") ;
-        return "." + split[split.length - 1] ;
-    }
-
-    public async string[] get_image_ids_async(int count) throws Error {
+    public async ImageMetadata[] get_image_metadata_async(int count) throws Error {
         if( count > MAX_IMAGE_COUNT ){
             count = MAX_IMAGE_COUNT ;
         }
@@ -67,7 +47,7 @@ internal class BingImageProvider : ImageProvider, Object {
             throw error ;
         }
 
-        var result = new string[count] ;
+        var result = new ImageMetadata[count] ;
 
         var root_object = parser.get_root ().get_object () ;
         int it = -1 ;
@@ -76,39 +56,23 @@ internal class BingImageProvider : ImageProvider, Object {
             var image = img.get_object () ;
             var base_url = image.get_string_member ("url") ;
             var title = image.get_string_member ("title") ;
+            var copyright = image.get_string_member ("copyright") ;
             var url_parts = base_url.split ("&")[0].split ("_") ;
 
             if( url_parts.length != 3 ){
                 throw new Error (TapetError.quark, TapetError.Code.IMAGE_PROVIDER_BING_BAD_IMAGE_URL, "Invalid image url in response: %s", base_url) ;
             }
 
-            string extension = "." + url_parts[2].split (".")[1] + "|" + title ;
+            string extension = "." + url_parts[2].split (".")[1] ;
             var id = url_parts[0] + "_" + url_parts[1] + "_<resolution>" + extension ;
-            result[it] = id ;
+            result[it] = new ImageMetadata (id, title, copyright, "", get_mime_type (id), get_extension (id)) ;
         }
 
         return result ;
     }
 
-    public async string get_image_url_async(string id, ImageQuality quality) throws Error {
-        string quality_string = "" ;
-        switch( quality ){
-        case ImageQuality.NATIVE:
-        case ImageQuality.HIGH:
-            quality_string = "UHD" ;
-            break ;
-        case ImageQuality.MEDIUM:
-            quality_string = "1920x1080" ;
-            break ;
-        case ImageQuality.LOW:
-            quality_string = "1280x720" ;
-            break ;
-        }
-
-        return "https://www.bing.com" + id.split ("|")[0].replace ("<resolution>", quality_string) ;
-    }
-
-    public async string save_to_file_async(string url, string path, string prefix, bool overwrite) throws Error {
+    public async string save_to_file_async(ImageMetadata image_metadata, ImageQuality quality, string path, string prefix, bool overwrite) throws Error {
+        var url = get_url (image_metadata.id, quality) ;
         var file_name = url.split ("?id=")[1] ;
         file_name = path + "/" + prefix + file_name ;
 
@@ -130,16 +94,56 @@ internal class BingImageProvider : ImageProvider, Object {
             }
         }
 
-        yield save_to_stream_async(url, output_stream) ;
+        yield Utilities.download_async(url, output_stream) ;
 
         yield output_stream.close_async() ;
 
         return file_name ;
     }
 
-    public async void save_to_stream_async(string url, OutputStream output_stream) throws Error {
+    public async InputStream get_input_stream_async(ImageMetadata image_metadata, ImageQuality quality) throws Error {
+        var url = get_url (image_metadata.id, quality) ;
+        return yield Utilities.get_stream_async(url) ;
+
+    }
+
+    public async void save_to_stream_async(ImageMetadata image_metadata, ImageQuality quality, OutputStream output_stream) throws Error {
+        var url = get_url (image_metadata.id, quality) ;
         yield Utilities.download_async(url, output_stream) ;
 
+    }
+
+    private static string ? get_mime_type (string id) throws Error {
+        for( int i = 0 ; i < ImageProvider.SUPPORTED_IMAGE_EXTENSIONS.length ; ++i ){
+            if( id.has_suffix (ImageProvider.SUPPORTED_IMAGE_EXTENSIONS[i])){
+                return ImageProvider.SUPPORTED_IMAGE_TYPES[i] ;
+            }
+        }
+
+        return null ;
+    }
+
+    private static string get_extension(string id) throws Error {
+        var split = id.split (".") ;
+        return "." + split[split.length - 1] ;
+    }
+
+    private static string get_url(string id, ImageQuality quality) throws Error {
+        string quality_string = "" ;
+        switch( quality ){
+        case ImageQuality.NATIVE:
+        case ImageQuality.HIGH:
+            quality_string = "UHD" ;
+            break ;
+        case ImageQuality.MEDIUM:
+            quality_string = "1920x1080" ;
+            break ;
+        case ImageQuality.LOW:
+            quality_string = "1280x720" ;
+            break ;
+        }
+
+        return "https://www.bing.com" + id.replace ("<resolution>", quality_string) ;
     }
 
 }
