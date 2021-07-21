@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 08:22+0300\n"
+"POT-Creation-Date: 2021-07-21 16:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,64 +45,92 @@ msgstr ""
 
 #. Settings Dialog
 #: src/Strings.vala:23
-msgid "Download folder"
+msgid "General settings"
 msgstr ""
 
-#. Main Content
+#: src/Strings.vala:24
+msgid "Try to change the wallpaper automatically at an interval"
+msgstr ""
+
+#: src/Strings.vala:25
+msgid "Don't set any previously set wallpapers"
+msgstr ""
+
 #: src/Strings.vala:26
-msgid "Set as wallpaper"
+msgid "Refresh the list of available wallpapers"
 msgstr ""
 
 #: src/Strings.vala:27
-msgid "Save as..."
+msgid "When starting set the most recent image available as wallpaper"
 msgstr ""
 
-#: src/Strings.vala:29
-msgid "Failed to set wallpaper"
+#: src/Strings.vala:28
+msgid "Display a notification when changing wallpaper"
 msgstr ""
 
 #: src/Strings.vala:30
-msgid "Failed to save wallpaper"
+msgid "Application settings"
 msgstr ""
 
-#: src/Strings.vala:32
-msgid "Applying wallpaper"
+#: src/Strings.vala:31
+msgid "Keep Tapet running in the background when closed"
 msgstr ""
 
+#. Main Content
 #: src/Strings.vala:34
-msgid "Failed to download image from provider"
+msgid "Set as wallpaper"
 msgstr ""
 
 #: src/Strings.vala:35
+msgid "Save as..."
+msgstr ""
+
+#: src/Strings.vala:37
+msgid "Failed to set wallpaper"
+msgstr ""
+
+#: src/Strings.vala:38
+msgid "Failed to save wallpaper"
+msgstr ""
+
+#: src/Strings.vala:40
+msgid "Applying wallpaper"
+msgstr ""
+
+#: src/Strings.vala:42
+msgid "Failed to download image from provider"
+msgstr ""
+
+#: src/Strings.vala:43
 msgid "Failed to download images from provider"
 msgstr ""
 
 #. Miscellaneous
-#: src/Strings.vala:38
+#: src/Strings.vala:46
 msgid "_Open"
 msgstr ""
 
-#: src/Strings.vala:39
+#: src/Strings.vala:47
 msgid "_Save"
 msgstr ""
 
-#: src/Strings.vala:40
+#: src/Strings.vala:48
 msgid "_Close"
 msgstr ""
 
-#: src/Strings.vala:41
+#: src/Strings.vala:49
 msgid "_Cancel"
 msgstr ""
 
-#: src/Strings.vala:42
+#: src/Strings.vala:50
 msgid "_Quit"
 msgstr ""
 
-#: src/Strings.vala:44
+#: src/Strings.vala:52
 msgid "Image"
 msgstr ""
 
-#: src/Strings.vala:50
+#: src/Strings.vala:58
 msgid "Download failed, server responded with"
 msgstr ""
 

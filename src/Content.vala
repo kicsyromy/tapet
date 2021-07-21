@@ -48,7 +48,6 @@ internal class Content : Gtk.ScrolledWindow {
         };
 
         add (flow_box);
-
         show_all ();
 
         /* TODO: Take scaling into account somehow */
@@ -139,7 +138,6 @@ internal class Content : Gtk.ScrolledWindow {
                 }
 
                 yield image_source.image_provider.save_to_stream_async (image_source.metadata, ImageQuality.HIGH, output_stream);
-
                 yield output_stream.close_async ();
             } catch (Error error) {
                 throw error;
@@ -166,7 +164,6 @@ internal class Content : Gtk.ScrolledWindow {
                         var image = new Gtk.Image.from_pixbuf (pixbuf.scale_simple (target_width, (int)target_height, Gdk.InterpType.BILINEAR));
                         var image_style_ctx = image.get_style_context ();
                         image_style_ctx.add_class (Granite.STYLE_CLASS_CARD);
-                        image_style_ctx.add_class (Granite.STYLE_CLASS_ROUNDED);
                         image.set_visible (true);
 
                         var event_box = new Gtk.EventBox () {

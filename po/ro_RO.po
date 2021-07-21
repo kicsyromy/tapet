@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 08:22+0300\n"
+"POT-Creation-Date: 2021-07-21 16:11+0300\n"
 "PO-Revision-Date: 2021-07-11 18:43+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -46,71 +46,92 @@ msgstr "Despre Tapet"
 
 #. Settings Dialog
 #: src/Strings.vala:23
-msgid "Download folder"
-msgstr "Director descărcări"
+msgid "General settings"
+msgstr ""
+
+#: src/Strings.vala:24
+msgid "Try to change the wallpaper automatically at an interval"
+msgstr ""
+
+#: src/Strings.vala:25
+msgid "Don't set any previously set wallpapers"
+msgstr ""
+
+#: src/Strings.vala:26
+msgid "Refresh the list of available wallpapers"
+msgstr ""
+
+#: src/Strings.vala:27
+msgid "When starting set the most recent image available as wallpaper"
+msgstr ""
+
+#: src/Strings.vala:28
+msgid "Display a notification when changing wallpaper"
+msgstr ""
+
+#: src/Strings.vala:30
+msgid "Application settings"
+msgstr ""
+
+#: src/Strings.vala:31
+msgid "Keep Tapet running in the background when closed"
+msgstr ""
 
 #. Main Content
-#: src/Strings.vala:26
-#, fuzzy
+#: src/Strings.vala:34
 msgid "Set as wallpaper"
 msgstr "Aplică ca imagine de fundal"
 
-#: src/Strings.vala:27
+#: src/Strings.vala:35
 msgid "Save as..."
 msgstr "Salvează..."
 
-#: src/Strings.vala:29
-#, fuzzy
+#: src/Strings.vala:37
 msgid "Failed to set wallpaper"
 msgstr "Aplică ca imagine de fundal"
 
-#: src/Strings.vala:30
-#, fuzzy
+#: src/Strings.vala:38
 msgid "Failed to save wallpaper"
 msgstr "Aplică ca imagine de fundal"
 
-#: src/Strings.vala:32
+#: src/Strings.vala:40
 msgid "Applying wallpaper"
 msgstr ""
 
-#: src/Strings.vala:34
+#: src/Strings.vala:42
 msgid "Failed to download image from provider"
 msgstr ""
 
-#: src/Strings.vala:35
+#: src/Strings.vala:43
 msgid "Failed to download images from provider"
 msgstr ""
 
 #. Miscellaneous
-#: src/Strings.vala:38
-#, fuzzy
+#: src/Strings.vala:46
 msgid "_Open"
 msgstr "Deschide"
 
-#: src/Strings.vala:39
+#: src/Strings.vala:47
 msgid "_Save"
 msgstr ""
 
-#: src/Strings.vala:40
-#, fuzzy
+#: src/Strings.vala:48
 msgid "_Close"
 msgstr "Închide"
 
-#: src/Strings.vala:41
-#, fuzzy
+#: src/Strings.vala:49
 msgid "_Cancel"
 msgstr "Anulează"
 
-#: src/Strings.vala:42
-#, fuzzy
+#: src/Strings.vala:50
 msgid "_Quit"
 msgstr "Ieșire"
 
-#: src/Strings.vala:44
+#: src/Strings.vala:52
 msgid "Image"
 msgstr ""
 
-#: src/Strings.vala:50
+#: src/Strings.vala:58
 msgid "Download failed, server responded with"
 msgstr ""
 
@@ -126,3 +147,6 @@ msgstr "Descarcă și aplică imagini de fundal de pe surse populare online"
 #: data/tapet.desktop.in:10
 msgid "Tapet;Wallpaper;"
 msgstr "Tapet;Fundal;Imagine Fundal;"
+
+#~ msgid "Download folder"
+#~ msgstr "Director descărcări"

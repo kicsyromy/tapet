@@ -24,16 +24,8 @@ internal class BingImageProvider : ImageProvider, Object {
         var bing_url = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=" + count.to_string () + "&mkt=en-US";
         var output_stream = new MemoryOutputStream (null);
 
-        string content_type = null;
-
-        try {
-            content_type = yield Utilities.download_async (bing_url, output_stream);
-
-            output_stream.close ();
-        } catch (Error error) {
-            throw error;
-        }
-
+        var content_type = yield Utilities.download_async (bing_url, output_stream);
+        yield output_stream.close_async ();
         if (content_type != "application/json") {
             throw new Error (TapetError.quark, TapetError.Code.SERVER_BAD_RESPONSE, "Server responded with an invalid content type; expected 'application/json' got '%s'", content_type);
         }
@@ -41,11 +33,7 @@ internal class BingImageProvider : ImageProvider, Object {
         var data = output_stream.steal_data ();
 
         var parser = new Json.Parser ();
-        try {
-            parser.load_from_data ((string)data, (ssize_t)data.length);
-        } catch (Error error) {
-            throw error;
-        }
+        parser.load_from_data ((string)data, (ssize_t)data.length);
 
         var result = new ImageMetadata[count];
 

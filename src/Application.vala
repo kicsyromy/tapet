@@ -28,8 +28,8 @@ public class TapetApplication : Gtk.Application {
             );
 
         ((Gtk.Button)message_dialog.add_button (Strings.MISC_QUIT, Gtk.ResponseType.OK))
-        .get_style_context ()
-        .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            .get_style_context ()
+            .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         message_dialog.run ();
         message_dialog.destroy ();
@@ -45,8 +45,8 @@ public class TapetApplication : Gtk.Application {
             );
 
         ((Gtk.Button)message_dialog.add_button (Strings.MISC_CLOSE, Gtk.ResponseType.OK))
-        .get_style_context ()
-        .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            .get_style_context ()
+            .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         message_dialog.run ();
         message_dialog.destroy ();
@@ -70,6 +70,9 @@ public class TapetApplication : Gtk.Application {
     }
 
     public static int main (string[] args) {
+        print ("FLATPAK_ID: %s\n", Environment.get_variable ("FLATPAK_ID"));
+        print ("container: %s\n",  Environment.get_variable ("container"));
+
         instance = new TapetApplication ();
 
         TapetError.quark = Quark.from_string (Strings.APPLICATION_ERROR_QUARK);

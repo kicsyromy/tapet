@@ -20,7 +20,15 @@ internal class Strings {
     public const string MENU_ITEM_ABOUT = _ ("About Tapet");
 
     /* Settings Dialog */
-    public const string SETTINGS_DOWNLOAD_FOLDER = _ ("Download folder");
+    public const string SETTINGS_LABEL_SECTION_GENERAL_SETTINGS = _ ("General settings");
+    public const string SETTINGS_LABEL_ITEM_BACKGROUND_CHANGE_INTERVAL = _ ("Try to change the wallpaper automatically at an interval");
+    public const string SETTINGS_LABEL_ITEM_DONT_REUSE_OLD_WALLPAPERS = _ ("Don't set any previously set wallpapers");
+    public const string SETTINGS_LABEL_ITEM_REFRESH_IMAGE_LIST = _ ("Refresh the list of available wallpapers");
+    public const string SETTINGS_LABEL_ITEM_STARTUP_SET_LATEST = _ ("When starting set the most recent image available as wallpaper");
+    public const string SETTINGS_LABEL_ITEM_ENABLE_NOTIFICATIONS = _ ("Display a notification when changing wallpaper");
+
+    public const string SETTINGS_LABEL_SECTION_APPLICATION_SETTINGS = _ ("Application settings");
+    public const string SETTINGS_LABEL_ITEM_KEEP_RUNNING_WHEN_CLOSED = _ ("Keep Tapet running in the background when closed");
 
     /* Main Content */
     public const string CONTENT_POPOVER_SET_BACKGROUND = _ ("Set as wallpaper");
