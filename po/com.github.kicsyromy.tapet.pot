@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 12:12+0300\n"
+"POT-Creation-Date: 2021-07-21 08:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,21 +57,53 @@ msgstr ""
 msgid "Save as..."
 msgstr ""
 
-#. Miscellaneous
-#: src/Strings.vala:30
-msgid "Open"
+#: src/Strings.vala:29
+msgid "Failed to set wallpaper"
 msgstr ""
 
-#: src/Strings.vala:31
-msgid "Close"
+#: src/Strings.vala:30
+msgid "Failed to save wallpaper"
 msgstr ""
 
 #: src/Strings.vala:32
-msgid "Cancel"
+msgid "Applying wallpaper"
 msgstr ""
 
-#: src/Strings.vala:33
-msgid "Quit"
+#: src/Strings.vala:34
+msgid "Failed to download image from provider"
+msgstr ""
+
+#: src/Strings.vala:35
+msgid "Failed to download images from provider"
+msgstr ""
+
+#. Miscellaneous
+#: src/Strings.vala:38
+msgid "_Open"
+msgstr ""
+
+#: src/Strings.vala:39
+msgid "_Save"
+msgstr ""
+
+#: src/Strings.vala:40
+msgid "_Close"
+msgstr ""
+
+#: src/Strings.vala:41
+msgid "_Cancel"
+msgstr ""
+
+#: src/Strings.vala:42
+msgid "_Quit"
+msgstr ""
+
+#: src/Strings.vala:44
+msgid "Image"
+msgstr ""
+
+#: src/Strings.vala:50
+msgid "Download failed, server responded with"
 msgstr ""
 
 #: data/tapet.desktop.in:4

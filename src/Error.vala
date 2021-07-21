@@ -3,13 +3,13 @@
  * SPDX-FileCopyrightText: 2021 Romeo Calotă <mail@romeocalota.me>
  */
 
-using GLib ;
+using GLib;
 
 internal class TapetError {
     public class Code {
-        public const int SERVER_BAD_RESPONSE = 100 ;
-        public const int IMAGE_PROVIDER_BING_BAD_IMAGE_URL = 101 ;
+        public const int SERVER_BAD_RESPONSE = 100;
+        public const int IMAGE_PROVIDER_BING_BAD_IMAGE_URL = 101;
     }
 
-    public static Quark quark ;
+    public static Quark quark;
 }

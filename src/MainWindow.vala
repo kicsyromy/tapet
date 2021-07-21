@@ -4,23 +4,22 @@
  */
 
 internal class MainWindow : Hdy.ApplicationWindow {
-    internal static MainWindow instance = null ;
+    internal static MainWindow instance = null;
 
     public MainWindow () {
         // delete_event.connect (hide_on_delete) ;
-        instance = this ;
+        instance = this;
     }
 
     construct {
-        default_width = 1036 ;
-        default_height = 800 ;
-        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) ;
+        default_width = 1036;
+        default_height = 800;
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 
-        box.add (new HeaderBar ()) ;
-        box.add (new Content ()) ;
+        box.add (new HeaderBar ());
+        box.add (new Content ());
 
-        add (box) ;
-        show_all () ;
+        add (box);
+        show_all ();
     }
-
 }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 12:12+0300\n"
+"POT-Creation-Date: 2021-07-21 08:22+0300\n"
 "PO-Revision-Date: 2021-07-11 18:43+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -59,22 +59,60 @@ msgstr "Aplică ca imagine de fundal"
 msgid "Save as..."
 msgstr "Salvează..."
 
-#. Miscellaneous
-#: src/Strings.vala:30
-msgid "Open"
-msgstr "Deschide"
+#: src/Strings.vala:29
+#, fuzzy
+msgid "Failed to set wallpaper"
+msgstr "Aplică ca imagine de fundal"
 
-#: src/Strings.vala:31
-msgid "Close"
-msgstr "Închide"
+#: src/Strings.vala:30
+#, fuzzy
+msgid "Failed to save wallpaper"
+msgstr "Aplică ca imagine de fundal"
 
 #: src/Strings.vala:32
-msgid "Cancel"
+msgid "Applying wallpaper"
+msgstr ""
+
+#: src/Strings.vala:34
+msgid "Failed to download image from provider"
+msgstr ""
+
+#: src/Strings.vala:35
+msgid "Failed to download images from provider"
+msgstr ""
+
+#. Miscellaneous
+#: src/Strings.vala:38
+#, fuzzy
+msgid "_Open"
+msgstr "Deschide"
+
+#: src/Strings.vala:39
+msgid "_Save"
+msgstr ""
+
+#: src/Strings.vala:40
+#, fuzzy
+msgid "_Close"
+msgstr "Închide"
+
+#: src/Strings.vala:41
+#, fuzzy
+msgid "_Cancel"
 msgstr "Anulează"
 
-#: src/Strings.vala:33
-msgid "Quit"
+#: src/Strings.vala:42
+#, fuzzy
+msgid "_Quit"
 msgstr "Ieșire"
+
+#: src/Strings.vala:44
+msgid "Image"
+msgstr ""
+
+#: src/Strings.vala:50
+msgid "Download failed, server responded with"
+msgstr ""
 
 #: data/tapet.desktop.in:4
 msgid "Tapet Wallpaper Manager"
