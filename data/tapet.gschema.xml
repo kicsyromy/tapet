@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/com/github/kicsyromy/tapet/" id="com.github.kicsyromy.tapet">
+    <key name="background-change-interval" type="s">
+      <choices>
+        <choice value="0|Every 5 minutes"/>
+        <choice value="1|Every 10 minutes"/>
+        <choice value="2|Every 15 minutes"/>
+        <choice value="3|Every 30 minutes"/>
+        <choice value="4|Every hour"/>
+        <choice value="5|Every 2 hours"/>
+        <choice value="6|Every 4 hours"/>
+        <choice value="7|Every 6 hours"/>
+        <choice value="8|Every 12 hours"/>
+        <choice value="9|Every day"/>
+      </choices>
+      <default>"0|Every 5 minutes"</default>
+      <summary>Interval at which to change the wallpaper automatically</summary>
+    </key>
+
+    <key name="startup-set-latest" type="b">
+      <default>false</default>
+      <summary>When starting set the most recent image available as wallpaper</summary>
+    </key>
+
+    <key name="dont-reuse-old-wallpapers" type="b">
+      <default>false</default>
+      <summary>Don't set any previously set wallpapers</summary>
+    </key>
+
+    <key name="refresh-interval" type="s">
+      <choices>
+        <choice value="0|Every minute"/>
+        <choice value="1|Every 5 minutes"/>
+        <choice value="2|Every 10 minutes"/>
+        <choice value="3|Every 15 minutes"/>
+        <choice value="4|Every 30 minutes"/>
+        <choice value="5|Every hour"/>
+        <choice value="6|Every 2 hours"/>
+        <choice value="7|Every 4 hours"/>
+        <choice value="8|Every 6 hours"/>
+        <choice value="9|Every 12 hours"/>
+        <choice value="10|Every day"/>
+      </choices>
+      <default>"1|Every 5 minutes"</default>
+      <summary>Interval at which to change the wallpaper automatically</summary>
+    </key>
+
+    <key name="enable-notifications" type="b">
+      <default>false</default>
+      <summary>Display a notification when changing wallpaper</summary>
+    </key>
+
+    <key name="keep-running-when-closed" type="b">
+      <default>false</default>
+      <summary>Keep running in the background when closed</summary>
+    </key>
+  </schema>
+</schemalist>

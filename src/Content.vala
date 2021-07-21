@@ -100,7 +100,7 @@ internal class Content : Gtk.ScrolledWindow {
         var file_name = yield thumbnail_source.image_provider.save_to_file_async (thumbnail_source.metadata, ImageQuality.HIGH, TapetApplication.instance.cache_dir, "wp_", false);
 
         var current_background = settings.get_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY).get_string (null);
-        debug ("%s: %s -> file://%s\n", Strings.DEBUG_APPLY_WALLPAPER, current_background, file_name);
+        info ("%s: %s -> file://%s\n", Strings.DEBUG_APPLY_WALLPAPER, current_background, file_name);
 
         settings.set_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY, "file://" + file_name);
         settings.set_value (Strings.MISC_BACKGROUND_PICTURE_OPTIONS, "zoom");

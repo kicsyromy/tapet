@@ -4,6 +4,33 @@
  */
 
 internal class SettingsDialog : Granite.Dialog {
+    private static string[] background_change_interval_combobox_values = {
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_5_MINUTES,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_10_MINUTES,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_15_MINUTES,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_30_MINUTES,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_1_HOUR,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_2_HOURS,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_4_HOURS,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_6_HOURS,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_12_HOURS,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_1_DAY
+    };
+
+    private static string[] refresh_interval_combobox_values = {
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_1_MINUTE,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_5_MINUTES,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_10_MINUTES,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_15_MINUTES,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_30_MINUTES,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_1_HOUR,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_2_HOURS,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_4_HOURS,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_6_HOURS,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_12_HOURS,
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_1_DAY
+    };
+
     public SettingsDialog (Gtk.Window parent) {
         transient_for = parent;
     }
@@ -11,24 +38,71 @@ internal class SettingsDialog : Granite.Dialog {
     construct {
         var section_general_settings = create_settings_section (Strings.SETTINGS_LABEL_SECTION_GENERAL_SETTINGS);
 
-        var background_change_interval = create_settings_item (Strings.SETTINGS_LABEL_ITEM_BACKGROUND_CHANGE_INTERVAL, new Gtk.ComboBox ());
+        var background_change_interval_combo_box = new Gtk.ComboBoxText ();
+        foreach (var value in background_change_interval_combobox_values)
+        {
+            background_change_interval_combo_box.append_text (value);
+        }
+        TapetApplication.application_settings.bind_with_mapping (
+            Strings.APPLICATION_SETTINGS_BACKGROUND_CHANGE_INTERVAL,
+            background_change_interval_combo_box,
+            "active",
+            GLib.SettingsBindFlags.DEFAULT,
+            (value, variant, _) => {
+            value.set_int (int.parse (variant.get_string (null).split ("|", 1)[0]));
+            return true;
+        },
+            (value, _, __) => {
+            var v = value.get_int ();
+            return new Variant.string (v.to_string () + "|" + background_change_interval_combobox_values[v]);
+        },
+            null, null);
+        var background_change_interval = create_settings_item (Strings.SETTINGS_LABEL_ITEM_BACKGROUND_CHANGE_INTERVAL, background_change_interval_combo_box);
         section_general_settings.add (background_change_interval);
 
-        var startup_set_latest = create_settings_item (Strings.SETTINGS_LABEL_ITEM_STARTUP_SET_LATEST, new Gtk.Switch ());
+        var startup_switch = new Gtk.Switch ();
+        TapetApplication.application_settings.bind (Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST, startup_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        var startup_set_latest = create_settings_item (Strings.SETTINGS_LABEL_ITEM_STARTUP_SET_LATEST, startup_switch);
         section_general_settings.add (startup_set_latest);
 
-        var dont_reuse_wallpapers = create_settings_item (Strings.SETTINGS_LABEL_ITEM_DONT_REUSE_OLD_WALLPAPERS, new Gtk.Switch ());
+        var dont_reuse_wallpapers_switch = new Gtk.Switch ();
+        TapetApplication.application_settings.bind (Strings.APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS, dont_reuse_wallpapers_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        var dont_reuse_wallpapers = create_settings_item (Strings.SETTINGS_LABEL_ITEM_DONT_REUSE_OLD_WALLPAPERS, dont_reuse_wallpapers_switch);
         section_general_settings.add (dont_reuse_wallpapers);
 
-        var refresh_images = create_settings_item (Strings.SETTINGS_LABEL_ITEM_REFRESH_IMAGE_LIST, new Gtk.ComboBox ());
+        var refresh_interval_combo_box = new Gtk.ComboBoxText ();
+        foreach (var s in refresh_interval_combobox_values)
+        {
+            refresh_interval_combo_box.append_text (s);
+        }
+        TapetApplication.application_settings.bind_with_mapping (
+            Strings.APPLICATION_SETTINGS_REFRESH_INTERVAL,
+            refresh_interval_combo_box,
+            "active",
+            GLib.SettingsBindFlags.DEFAULT,
+            (value, variant, _) => {
+            value.set_int (int.parse (variant.get_string (null).split ("|", 1)[0]));
+            return true;
+        },
+            (value, _, __) => {
+            var v = value.get_int ();
+            return new Variant.string (v.to_string () + "|" + refresh_interval_combobox_values[v]);
+        },
+            null, null);
+
+        var refresh_images = create_settings_item (Strings.SETTINGS_LABEL_ITEM_REFRESH_INTERVAL, refresh_interval_combo_box);
         section_general_settings.add (refresh_images);
 
-        var notifications = create_settings_item (Strings.SETTINGS_LABEL_ITEM_ENABLE_NOTIFICATIONS, new Gtk.Switch ());
+        var notifications_switch = new Gtk.Switch ();
+        TapetApplication.application_settings.bind (Strings.APPLICATION_SETTINGS_ENABLE_NOTIFICATIONS, notifications_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        var notifications = create_settings_item (Strings.SETTINGS_LABEL_ITEM_ENABLE_NOTIFICATIONS, notifications_switch);
         section_general_settings.add (notifications);
 
         var section_application_settings = create_settings_section (Strings.SETTINGS_LABEL_SECTION_APPLICATION_SETTINGS);
 
-        var keep_running = create_settings_item (Strings.SETTINGS_LABEL_ITEM_KEEP_RUNNING_WHEN_CLOSED, new Gtk.Switch ());
+        var keep_running_switch = new Gtk.Switch ();
+        TapetApplication.application_settings.bind (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED, keep_running_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        var keep_running = create_settings_item (Strings.SETTINGS_LABEL_ITEM_KEEP_RUNNING_WHEN_CLOSED, keep_running_switch);
         section_application_settings.add (keep_running);
 
         var layout = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
@@ -81,7 +155,7 @@ internal class SettingsDialog : Granite.Dialog {
         return section;
     }
 
-    private static Gtk.Box create_settings_item (string label_text, Gtk.Widget ? widget = null, out Gtk.Widget ? the_widget = null) {
+    private static Gtk.Box create_settings_item (string label_text, Gtk.Widget ? widget = null) {
         var container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_top = 0,
             margin_bottom = 12,
@@ -102,10 +176,6 @@ internal class SettingsDialog : Granite.Dialog {
             widget.halign = Gtk.Align.END;
             widget.valign = Gtk.Align.CENTER;
             container.pack_end (widget, false, false);
-
-            the_widget = widget;
-        } else {
-            the_widget =null;
         }
 
         return container;

@@ -20,4 +20,12 @@ i18n.merge_file(
     install_dir: get_option('datadir') / 'metainfo'
 )
 
+install_data (
+    'tapet.gschema.xml',
+    install_dir: get_option('datadir') / 'glib-2.0' / 'schemas',
+    rename: meson.project_name() + '.gschema.xml'
+)
+
+meson.add_install_script(meson.project_source_root() / 'meson' / 'post_install.py')
+
 subdir('icons')

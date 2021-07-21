@@ -9,6 +9,7 @@ public class TapetApplication : Gtk.Application {
     public static TapetApplication instance = null;
 
     internal static SystemSettings system_settings = new SystemSettings ();
+    internal static Settings application_settings = new Settings (Strings.APPLICATION_ID);
 
     internal GenericArray<ImageProvider> image_providers = new GenericArray<ImageProvider>();
     internal string cache_dir;
