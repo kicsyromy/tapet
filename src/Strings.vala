@@ -49,6 +49,9 @@ internal class Strings {
     public const string CONTENT_WARN_SET_BACKGROUND_FAIL_PRIMARY = _ ("Failed to set wallpaper");
     public const string CONTENT_WARN_SAVE_BACKGROUND_FAIL_PRIMARY = _ ("Failed to save wallpaper");
 
+    public const string CONTENT_DIALOG_KEEP_RUNNING_PRIMARY = _ ("Keep application running in the background?");
+    public const string CONTENT_DIALOG_KEEP_RUNNING_DESCRIPTION = _ ("In order to refresh the list of available wallpapers and update the current wallpaper automatically, Tapet can run in the background.\nDo you want to allow Tapet to keep running after this window has been closed?");
+
     public const string DEBUG_APPLY_WALLPAPER = _ ("Applying wallpaper");
 
     public const string WARN_DOWNLOAD_IMAGE = _ ("Failed to download image from provider");
@@ -60,6 +63,8 @@ internal class Strings {
     public const string MISC_CLOSE = _ ("_Close");
     public const string MISC_CANCEL = _ ("_Cancel");
     public const string MISC_QUIT = _ ("_Quit");
+    public const string MISC_YES = _ ("Yes");
+    public const string MISC_NO = _ ("No");
 
     public const string MISC_IMAGE_FILTER_NAME = _ ("Image");
 

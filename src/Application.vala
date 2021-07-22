@@ -6,13 +6,15 @@
 using GLib;
 
 public class TapetApplication : Gtk.Application {
-    public static TapetApplication instance = null;
+    internal static TapetApplication instance = null;
 
     internal static SystemSettings system_settings = new SystemSettings ();
     internal static Settings application_settings = new Settings (Strings.APPLICATION_ID);
 
     internal GenericArray<ImageProvider> image_providers = new GenericArray<ImageProvider>();
     internal string cache_dir;
+
+    private MainWindow main_window = null;
 
     public TapetApplication () {
         Object (
@@ -28,7 +30,7 @@ public class TapetApplication : Gtk.Application {
             Gtk.ButtonsType.NONE
             );
 
-        ((Gtk.Button)message_dialog.add_button (Strings.MISC_QUIT, Gtk.ResponseType.OK))
+        message_dialog.add_button (Strings.MISC_QUIT, Gtk.ResponseType.OK)
             .get_style_context ()
             .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
@@ -45,7 +47,7 @@ public class TapetApplication : Gtk.Application {
             Gtk.ButtonsType.NONE
             );
 
-        ((Gtk.Button)message_dialog.add_button (Strings.MISC_CLOSE, Gtk.ResponseType.OK))
+        message_dialog.add_button (Strings.MISC_CLOSE, Gtk.ResponseType.OK)
             .get_style_context ()
             .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
@@ -53,8 +55,31 @@ public class TapetApplication : Gtk.Application {
         message_dialog.destroy ();
     }
 
+    public static bool show_question_dialog (string primary_text, string secondary_text, string accept_text, string reject_text) {
+        var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+            primary_text, secondary_text,
+            "dialog-question",
+            Gtk.ButtonsType.NONE
+            );
+
+        message_dialog.add_button (reject_text, Gtk.ResponseType.REJECT);
+        message_dialog.add_button (accept_text, Gtk.ResponseType.ACCEPT)
+            .get_style_context ()
+            .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+
+        bool response = message_dialog.run () == Gtk.ResponseType.ACCEPT;
+        message_dialog.destroy ();
+
+        return response;
+    }
+
     protected override void activate () {
-        add_window (new MainWindow ());
+        if (main_window != null) {
+            main_window.set_visible (true);
+        } else {
+            main_window = new MainWindow ();
+            add_window (main_window);
+        }
     }
 
     private async void init () {

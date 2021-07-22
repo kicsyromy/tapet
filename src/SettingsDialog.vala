@@ -112,7 +112,7 @@ internal class SettingsDialog : Granite.Dialog {
         layout.add (section_general_settings);
         layout.add (section_application_settings);
 
-        (add_button (Strings.MISC_CLOSE, Gtk.ResponseType.OK))
+        add_button (Strings.MISC_CLOSE, Gtk.ResponseType.OK)
             .get_style_context ()
             .add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
