@@ -27,7 +27,7 @@ internal class BingImageProvider : ImageProvider, Object {
         var content_type = yield Utilities.download_async (bing_url, output_stream);
         yield output_stream.close_async ();
         if (content_type != "application/json") {
-            throw new Error (TapetError.quark, TapetError.Code.SERVER_BAD_RESPONSE, "Server responded with an invalid content type; expected 'application/json' got '%s'", content_type);
+            throw new Error (TapetError.quark, TapetError.Code.SERVER_BAD_RESPONSE, Strings.ERROR_MESSAGE_CONTENT_TYPE_MISSMATCH, content_type);
         }
 
         var data = output_stream.steal_data ();
@@ -48,7 +48,7 @@ internal class BingImageProvider : ImageProvider, Object {
             var url_parts = base_url.split ("&")[0].split ("_");
 
             if (url_parts.length != 3) {
-                throw new Error (TapetError.quark, TapetError.Code.IMAGE_PROVIDER_BING_BAD_IMAGE_URL, "Invalid image url in response: %s", base_url);
+                throw new Error (TapetError.quark, TapetError.Code.IMAGE_PROVIDER_BING_BAD_IMAGE_URL, Strings.ERROR_MESSAGE_INVALID_URL, base_url);
             }
 
             string extension = "." + url_parts[2].split (".")[1];

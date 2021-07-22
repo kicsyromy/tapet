@@ -12,6 +12,14 @@ internal class Strings {
     public const string APPLICATION_ERROR_INIT_FAILED = _ ("Tapet failed to initialize properly");
     public const string APPLICATION_ERROR_CACHE_CREATE = _ ("Failed to create cache directory");
 
+    /* Application Settings */
+    public const string APPLICATION_SETTINGS_BACKGROUND_CHANGE_INTERVAL = "background-change-interval";
+    public const string APPLICATION_SETTINGS_STARTUP_SET_LATEST = "startup-set-latest";
+    public const string APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS = "dont-reuse-old-wallpapers";
+    public const string APPLICATION_SETTINGS_REFRESH_INTERVAL = "refresh-interval";
+    public const string APPLICATION_SETTINGS_ENABLE_NOTIFICATIONS = "enable-notifications";
+    public const string APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED  = "keep-running-when-closed";
+
     /* Header Bar */
     public const string HEADER_BAR_MENU_TOOLTIP = _ ("Menu");
 
@@ -50,7 +58,7 @@ internal class Strings {
     public const string CONTENT_WARN_SAVE_BACKGROUND_FAIL_PRIMARY = _ ("Failed to save wallpaper");
 
     public const string CONTENT_DIALOG_KEEP_RUNNING_PRIMARY = _ ("Keep application running in the background?");
-    public const string CONTENT_DIALOG_KEEP_RUNNING_DESCRIPTION = _ ("In order to refresh the list of available wallpapers and update the current wallpaper automatically, Tapet can run in the background.\nDo you want to allow Tapet to keep running after this window has been closed?");
+    public const string CONTENT_DIALOG_KEEP_RUNNING_DESCRIPTION = _ ("In order to refresh the list of available wallpapers and update the current wallpaper automatically, Tapet can run in the background.\n\nDo you want to allow Tapet to keep running after this window has been closed?");
 
     public const string DEBUG_APPLY_WALLPAPER = _ ("Applying wallpaper");
 
@@ -63,8 +71,8 @@ internal class Strings {
     public const string MISC_CLOSE = _ ("_Close");
     public const string MISC_CANCEL = _ ("_Cancel");
     public const string MISC_QUIT = _ ("_Quit");
-    public const string MISC_YES = _ ("Yes");
-    public const string MISC_NO = _ ("No");
+    public const string MISC_YES = _ ("_Yes");
+    public const string MISC_NO = _ ("_No");
 
     public const string MISC_IMAGE_FILTER_NAME = _ ("Image");
 
@@ -73,12 +81,6 @@ internal class Strings {
     public const string MISC_BACKGROUND_PICTURE_OPTIONS = "/org/gnome/desktop/background/picture-options";
 
     public const string ERROR_MESSAGE_BAD_RESPONSE = _ ("Download failed, server responded with");
-
-    /* Application Settings */
-    public const string APPLICATION_SETTINGS_BACKGROUND_CHANGE_INTERVAL = "background-change-interval";
-    public const string APPLICATION_SETTINGS_STARTUP_SET_LATEST = "startup-set-latest";
-    public const string APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS = "dont-reuse-old-wallpapers";
-    public const string APPLICATION_SETTINGS_REFRESH_INTERVAL = "refresh-interval";
-    public const string APPLICATION_SETTINGS_ENABLE_NOTIFICATIONS = "enable-notifications";
-    public const string APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED  = "keep-running-when-closed";
+    public const string ERROR_MESSAGE_CONTENT_TYPE_MISSMATCH = _ ("Server responded with an invalid content type; expected 'application/json' got '%s'");
+    public const string ERROR_MESSAGE_INVALID_URL = _ ("Invalid image url in response: %s");
 }
