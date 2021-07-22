@@ -36,6 +36,7 @@ internal class SettingsDialog : Granite.Dialog {
     }
 
     construct {
+        var application_settings = TapetApplication.instance.application_settings;
         var section_general_settings = create_settings_section (Strings.SETTINGS_LABEL_SECTION_GENERAL_SETTINGS);
 
         var background_change_interval_combo_box = new Gtk.ComboBoxText ();
@@ -43,7 +44,7 @@ internal class SettingsDialog : Granite.Dialog {
         {
             background_change_interval_combo_box.append_text (value);
         }
-        TapetApplication.application_settings.bind_with_mapping (
+        application_settings.bind_with_mapping (
             Strings.APPLICATION_SETTINGS_BACKGROUND_CHANGE_INTERVAL,
             background_change_interval_combo_box,
             "active",
@@ -61,12 +62,12 @@ internal class SettingsDialog : Granite.Dialog {
         section_general_settings.add (background_change_interval);
 
         var startup_switch = new Gtk.Switch ();
-        TapetApplication.application_settings.bind (Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST, startup_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        application_settings.bind (Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST, startup_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         var startup_set_latest = create_settings_item (Strings.SETTINGS_LABEL_ITEM_STARTUP_SET_LATEST, startup_switch);
         section_general_settings.add (startup_set_latest);
 
         var dont_reuse_wallpapers_switch = new Gtk.Switch ();
-        TapetApplication.application_settings.bind (Strings.APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS, dont_reuse_wallpapers_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        application_settings.bind (Strings.APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS, dont_reuse_wallpapers_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         var dont_reuse_wallpapers = create_settings_item (Strings.SETTINGS_LABEL_ITEM_DONT_REUSE_OLD_WALLPAPERS, dont_reuse_wallpapers_switch);
         section_general_settings.add (dont_reuse_wallpapers);
 
@@ -75,7 +76,7 @@ internal class SettingsDialog : Granite.Dialog {
         {
             refresh_interval_combo_box.append_text (s);
         }
-        TapetApplication.application_settings.bind_with_mapping (
+        application_settings.bind_with_mapping (
             Strings.APPLICATION_SETTINGS_REFRESH_INTERVAL,
             refresh_interval_combo_box,
             "active",
@@ -94,14 +95,14 @@ internal class SettingsDialog : Granite.Dialog {
         section_general_settings.add (refresh_images);
 
         var notifications_switch = new Gtk.Switch ();
-        TapetApplication.application_settings.bind (Strings.APPLICATION_SETTINGS_ENABLE_NOTIFICATIONS, notifications_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        application_settings.bind (Strings.APPLICATION_SETTINGS_ENABLE_NOTIFICATIONS, notifications_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         var notifications = create_settings_item (Strings.SETTINGS_LABEL_ITEM_ENABLE_NOTIFICATIONS, notifications_switch);
         section_general_settings.add (notifications);
 
         var section_application_settings = create_settings_section (Strings.SETTINGS_LABEL_SECTION_APPLICATION_SETTINGS);
 
         var keep_running_switch = new Gtk.Switch ();
-        TapetApplication.application_settings.bind (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED, keep_running_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        application_settings.bind (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED, keep_running_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         var keep_running = create_settings_item (Strings.SETTINGS_LABEL_ITEM_KEEP_RUNNING_WHEN_CLOSED, keep_running_switch);
         section_application_settings.add (keep_running);
 

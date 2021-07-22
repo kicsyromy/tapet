@@ -8,15 +8,16 @@ internal class MainWindow : Hdy.ApplicationWindow {
 
     public MainWindow () {
         delete_event.connect (() => {
-            var setting_changed_by_user = (TapetApplication.application_settings.get_user_value (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED) != null);
+            var application_settings = TapetApplication.instance.application_settings;
+            var setting_changed_by_user = (application_settings.get_user_value (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED) != null);
             if (!setting_changed_by_user) {
                 var response = TapetApplication.show_question_dialog (Strings.CONTENT_DIALOG_KEEP_RUNNING_PRIMARY, Strings.CONTENT_DIALOG_KEEP_RUNNING_DESCRIPTION, Strings.MISC_YES, Strings.MISC_NO);
-                TapetApplication.application_settings.set_boolean (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED, response);
+                application_settings.set_boolean (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED, response);
             }
 
             set_visible (false);
 
-            return TapetApplication.application_settings.get_boolean (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED);
+            return application_settings.get_boolean (Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED);
         });
         instance = this;
     }

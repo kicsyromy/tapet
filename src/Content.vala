@@ -56,7 +56,7 @@ internal class Content : Gtk.ScrolledWindow {
         });
 
         set_background_menuitem.clicked.connect (() => {
-            var settings = TapetApplication.system_settings;
+            var settings = TapetApplication.instance.system_settings;
             var thumbnail = (Gtk.Image)right_click_menu.get_relative_to ();
 
             set_background.begin (settings, thumbnail, (_, res) => {
