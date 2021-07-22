@@ -28,4 +28,11 @@ internal class Utilities {
         content_type = msg.response_headers.get_content_type (null);
         return in_stream;
     }
+
+    public static int get_interval_setting_index (string value) {
+        return int.parse (value.split ("|", 1)[0]);
+    }
+    public static string get_interval_setting_value (string value) {
+        return value.split ("|", 2)[1];
+    }
 }

@@ -6,6 +6,8 @@
 internal class MainWindow : Hdy.ApplicationWindow {
     internal static MainWindow instance = null;
 
+    private Content _content;
+
     public MainWindow () {
         delete_event.connect (() => {
             var application_settings = TapetApplication.instance.application_settings;
@@ -27,10 +29,16 @@ internal class MainWindow : Hdy.ApplicationWindow {
         default_height = 800;
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 
+        _content = new Content ();
+
         box.add (new HeaderBar ());
-        box.add (new Content ());
+        box.add (_content);
 
         add (box);
         show_all ();
+    }
+
+    public void refresh_content_from_provider (ImageProvider image_provider) {
+        _content.refresh_content_from_provider (image_provider);
     }
 }

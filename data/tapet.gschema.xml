@@ -3,18 +3,19 @@
   <schema path="/com/github/kicsyromy/tapet/" id="com.github.kicsyromy.tapet">
     <key name="background-change-interval" type="s">
       <choices>
-        <choice value="0|Every 5 minutes"/>
-        <choice value="1|Every 10 minutes"/>
-        <choice value="2|Every 15 minutes"/>
-        <choice value="3|Every 30 minutes"/>
-        <choice value="4|Every hour"/>
-        <choice value="5|Every 2 hours"/>
-        <choice value="6|Every 4 hours"/>
-        <choice value="7|Every 6 hours"/>
-        <choice value="8|Every 12 hours"/>
-        <choice value="9|Every day"/>
+        <choice value="0|never"/>
+        <choice value="1|every-5-mins"/>
+        <choice value="2|every-10-mins"/>
+        <choice value="3|every-15-mins"/>
+        <choice value="4|every-30-mins"/>
+        <choice value="5|every-hour"/>
+        <choice value="6|every-2-hours"/>
+        <choice value="7|every-4-hours"/>
+        <choice value="8|every-6-hours"/>
+        <choice value="9|every-12-hours"/>
+        <choice value="10|every-day"/>
       </choices>
-      <default>"0|Every 5 minutes"</default>
+      <default>"0|never"</default>
       <summary>Interval at which to change the wallpaper automatically</summary>
     </key>
 
@@ -30,19 +31,20 @@
 
     <key name="refresh-interval" type="s">
       <choices>
-        <choice value="0|Every minute"/>
-        <choice value="1|Every 5 minutes"/>
-        <choice value="2|Every 10 minutes"/>
-        <choice value="3|Every 15 minutes"/>
-        <choice value="4|Every 30 minutes"/>
-        <choice value="5|Every hour"/>
-        <choice value="6|Every 2 hours"/>
-        <choice value="7|Every 4 hours"/>
-        <choice value="8|Every 6 hours"/>
-        <choice value="9|Every 12 hours"/>
-        <choice value="10|Every day"/>
+        <choice value="0|never"/>
+        <choice value="1|every-min"/>
+        <choice value="2|every-5-mins"/>
+        <choice value="3|every-10-mins"/>
+        <choice value="4|every-15-mins"/>
+        <choice value="5|every-30-mins"/>
+        <choice value="6|every-hour"/>
+        <choice value="7|every-2-hours"/>
+        <choice value="8|every-4-hours"/>
+        <choice value="9|every-6-hours"/>
+        <choice value="10|every-12-hours"/>
+        <choice value="11|every-day"/>
       </choices>
-      <default>"1|Every 5 minutes"</default>
+      <default>"0|never"</default>
       <summary>Interval at which to change the wallpaper automatically</summary>
     </key>
 

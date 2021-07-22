@@ -5,6 +5,7 @@
 
 internal class SettingsDialog : Granite.Dialog {
     private static string[] background_change_interval_combobox_values = {
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_NEVER,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_5_MINUTES,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_10_MINUTES,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_15_MINUTES,
@@ -18,6 +19,7 @@ internal class SettingsDialog : Granite.Dialog {
     };
 
     private static string[] refresh_interval_combobox_values = {
+        Strings.SETTINGS_COMBO_BOX_INTERVAL_NEVER,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_1_MINUTE,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_5_MINUTES,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_10_MINUTES,
@@ -50,12 +52,18 @@ internal class SettingsDialog : Granite.Dialog {
             "active",
             GLib.SettingsBindFlags.DEFAULT,
             (value, variant, _) => {
-            value.set_int (int.parse (variant.get_string (null).split ("|", 1)[0]));
+            value.set_int (Utilities.get_interval_setting_index (variant.get_string (null)));
             return true;
         },
             (value, _, __) => {
             var v = value.get_int ();
-            return new Variant.string (v.to_string () + "|" + background_change_interval_combobox_values[v]);
+            string choice_value;
+            if (v == 0) {
+                choice_value = Utilities.get_interval_setting_value (Strings.APPLICATION_SETTINGS_INTERVAL_CHOICES_ALL[v]);
+            } else {
+                choice_value = Utilities.get_interval_setting_value (Strings.APPLICATION_SETTINGS_INTERVAL_CHOICES_ALL[v + 1]);
+            }
+            return new Variant.string (v.to_string () + "|" + choice_value);
         },
             null, null);
         var background_change_interval = create_settings_item (Strings.SETTINGS_LABEL_ITEM_BACKGROUND_CHANGE_INTERVAL, background_change_interval_combo_box);
@@ -82,12 +90,12 @@ internal class SettingsDialog : Granite.Dialog {
             "active",
             GLib.SettingsBindFlags.DEFAULT,
             (value, variant, _) => {
-            value.set_int (int.parse (variant.get_string (null).split ("|", 1)[0]));
+            value.set_int (Utilities.get_interval_setting_index (variant.get_string (null)));
             return true;
         },
             (value, _, __) => {
             var v = value.get_int ();
-            return new Variant.string (v.to_string () + "|" + refresh_interval_combobox_values[v]);
+            return new Variant.string (Strings.APPLICATION_SETTINGS_INTERVAL_CHOICES_ALL[v]);
         },
             null, null);
 

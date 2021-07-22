@@ -20,6 +20,33 @@ internal class Strings {
     public const string APPLICATION_SETTINGS_ENABLE_NOTIFICATIONS = "enable-notifications";
     public const string APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED  = "keep-running-when-closed";
 
+    public const string APPLICATION_SETTINGS_CHOICE_NEVER = "0|never";
+    public const string APPLICATION_SETTINGS_CHOICE_1_MINUTE = "1|every-min";
+    public const string APPLICATION_SETTINGS_CHOICE_5_MINUTES  = "2|every-5-mins";
+    public const string APPLICATION_SETTINGS_CHOICE_10_MINUTES = "3|every-10-mins";
+    public const string APPLICATION_SETTINGS_CHOICE_15_MINUTES = "4|every-15-mins";
+    public const string APPLICATION_SETTINGS_CHOICE_30_MINUTES = "5|every-30-mins";
+    public const string APPLICATION_SETTINGS_CHOICE_1_HOUR = "6|every-hour";
+    public const string APPLICATION_SETTINGS_CHOICE_2_HOURS = "7|every-2-hours";
+    public const string APPLICATION_SETTINGS_CHOICE_4_HOURS = "8|every-4-hours";
+    public const string APPLICATION_SETTINGS_CHOICE_6_HOURS = "9|every-6-hours";
+    public const string APPLICATION_SETTINGS_CHOICE_12_HOURS = "10|every-12-hours";
+    public const string APPLICATION_SETTINGS_CHOICE_1_DAY = "11|every-day";
+    public const string[] APPLICATION_SETTINGS_INTERVAL_CHOICES_ALL = {
+        APPLICATION_SETTINGS_CHOICE_NEVER,
+        APPLICATION_SETTINGS_CHOICE_1_MINUTE,
+        APPLICATION_SETTINGS_CHOICE_5_MINUTES,
+        APPLICATION_SETTINGS_CHOICE_10_MINUTES,
+        APPLICATION_SETTINGS_CHOICE_15_MINUTES,
+        APPLICATION_SETTINGS_CHOICE_30_MINUTES,
+        APPLICATION_SETTINGS_CHOICE_1_HOUR,
+        APPLICATION_SETTINGS_CHOICE_2_HOURS,
+        APPLICATION_SETTINGS_CHOICE_4_HOURS,
+        APPLICATION_SETTINGS_CHOICE_6_HOURS,
+        APPLICATION_SETTINGS_CHOICE_12_HOURS,
+        APPLICATION_SETTINGS_CHOICE_1_DAY
+    };
+
     /* Header Bar */
     public const string HEADER_BAR_MENU_TOOLTIP = _ ("Menu");
 
@@ -35,6 +62,7 @@ internal class Strings {
     public const string SETTINGS_LABEL_ITEM_REFRESH_INTERVAL = _ ("Refresh the list of available wallpapers");
     public const string SETTINGS_LABEL_ITEM_ENABLE_NOTIFICATIONS = _ ("Display a notification when changing wallpaper");
 
+    public const string SETTINGS_COMBO_BOX_INTERVAL_NEVER = _ ("Never");
     public const string SETTINGS_COMBO_BOX_INTERVAL_1_MINUTE = _ ("Every minute");
     public const string SETTINGS_COMBO_BOX_INTERVAL_5_MINUTES = _ ("Every 5 minutes");
     public const string SETTINGS_COMBO_BOX_INTERVAL_10_MINUTES = _ ("Every 10 minutes");

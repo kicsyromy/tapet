@@ -95,56 +95,28 @@ public class TapetApplication : Gtk.Application {
             image_providers.add (new BingImageProvider ());
 
             _image_refresh_handler = new ImageRefreshHandler (image_providers);
-            set_up_image_refresh_handler ();
+
+            application_settings.changed.connect ((key) => {
+                switch (key) {
+                case Strings.APPLICATION_SETTINGS_BACKGROUND_CHANGE_INTERVAL :
+                    break;
+                case Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST :
+                    break;
+                case Strings.APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS :
+                    break;
+                case Strings.APPLICATION_SETTINGS_REFRESH_INTERVAL :
+                    _image_refresh_handler.update_refresh_interval ();
+                    break;
+                case Strings.APPLICATION_SETTINGS_ENABLE_NOTIFICATIONS :
+                    break;
+                case Strings.APPLICATION_SETTINGS_KEEP_RUNNING_WHEN_CLOSED  :
+                    break;
+                }
+            });
 
             _main_window = new MainWindow ();
             add_window (_main_window);
         }
-    }
-
-    private void set_up_image_refresh_handler () {
-        var refresh_interval = application_settings.get_string (Strings.APPLICATION_SETTINGS_REFRESH_INTERVAL).split ("|")[1];
-        var refresh_interval_ms = 12 * 60 * 60000;
-        switch (refresh_interval)
-        {
-        default :
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_1_MINUTE :
-            refresh_interval_ms = 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_5_MINUTES :
-            refresh_interval_ms = 5 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_10_MINUTES :
-            refresh_interval_ms = 10 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_15_MINUTES :
-            refresh_interval_ms = 10 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_30_MINUTES :
-            refresh_interval_ms = 30 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_1_HOUR :
-            refresh_interval_ms = 60 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_2_HOURS :
-            refresh_interval_ms = 2 * 60 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_4_HOURS :
-            refresh_interval_ms = 4 * 60 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_6_HOURS :
-            refresh_interval_ms = 6 * 60 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_12_HOURS :
-            refresh_interval_ms = 12 * 60 * 60000;
-            break;
-        case Strings.SETTINGS_COMBO_BOX_INTERVAL_1_DAY :
-            refresh_interval_ms = 24 * 60 * 60000;
-            break;
-        }
-        _image_refresh_handler.set_interval (refresh_interval_ms);
-        _image_refresh_handler.start ();
     }
 
     public static int main (string[] args) {

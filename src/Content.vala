@@ -14,6 +14,7 @@ internal class Content : Gtk.ScrolledWindow {
     private Gtk.Popover right_click_menu = new Gtk.Popover (null);
 
     private HashTable<unowned Gtk.Widget, ImageSource> thumbnails = new HashTable<unowned Gtk.Widget, ImageSource>(direct_hash, direct_equal);
+    private HashTable<unowned ImageProvider, unowned Gtk.FlowBox> _thumbnail_containers = new HashTable<unowned ImageProvider, unowned Gtk.FlowBox>(direct_hash, direct_equal);
 
     construct {
         var set_background_menuitem = new Gtk.ModelButton ();
@@ -39,21 +40,22 @@ internal class Content : Gtk.ScrolledWindow {
         right_click_menu.add (right_click_menu_grid);
         right_click_menu.set_position (Gtk.PositionType.BOTTOM);
 
-        var flow_box = new Gtk.FlowBox () {
-            vexpand = true,
-            hexpand = true,
-            halign = Gtk.Align.FILL,
-            valign = Gtk.Align.START,
-            homogeneous = true
-        };
+        foreach (var image_provider in TapetApplication.instance.image_providers.data) {
+            var flow_box = new Gtk.FlowBox () {
+                vexpand = true,
+                hexpand = true,
+                halign = Gtk.Align.FILL,
+                valign = Gtk.Align.START,
+                homogeneous = true
+            };
+            _thumbnail_containers.insert (image_provider, flow_box);
 
-        add (flow_box);
+            refresh_content_from_provider (image_provider);
+
+            add (flow_box);
+        }
+
         show_all ();
-
-        /* TODO: Take scaling into account somehow */
-        load_thumbnails.begin (flow_box, 500, (_, res) => {
-            load_thumbnails.end (res);
-        });
 
         set_background_menuitem.clicked.connect (() => {
             var settings = TapetApplication.instance.system_settings;
@@ -79,6 +81,18 @@ internal class Content : Gtk.ScrolledWindow {
                     TapetApplication.show_warning_dialog (Strings.CONTENT_WARN_SAVE_BACKGROUND_FAIL_PRIMARY, error.message + ".");
                 }
             });
+        });
+    }
+
+    public void refresh_content_from_provider (ImageProvider image_provider) {
+        var container = _thumbnail_containers.get (image_provider);
+        container.foreach ((child) => {
+            container.remove (child);
+        });
+
+        /* TODO: Take scaling into account somehow */
+        load_thumbnails.begin (image_provider, container, 500, (_, res) => {
+            load_thumbnails.end (res);
         });
     }
 
@@ -147,53 +161,49 @@ internal class Content : Gtk.ScrolledWindow {
         }
     }
 
-    private async void load_thumbnails (Gtk.Container container, int target_width) {
-        var image_providers = TapetApplication.instance.image_providers.data;
+    private async void load_thumbnails (ImageProvider image_provider, Gtk.Container container, int target_width) {
+        try {
+            var metadatas = yield image_provider.get_image_metadata_async (image_provider.get_max_image_count ());
 
-        foreach (var image_provider in image_providers) {
-            try {
-                var metadatas = yield image_provider.get_image_metadata_async (image_provider.get_max_image_count ());
+            foreach (var metadata in metadatas) {
+                try {
+                    var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield image_provider.get_input_stream_async (metadata, ImageQuality.LOW));
 
-                foreach (var metadata in metadatas) {
-                    try {
-                        var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield image_provider.get_input_stream_async (metadata, ImageQuality.LOW));
+                    var ratio = (double)target_width / pixbuf.width;
+                    var target_height = pixbuf.height * ratio;
 
-                        var ratio = (double)target_width / pixbuf.width;
-                        var target_height = pixbuf.height * ratio;
+                    var image = new Gtk.Image.from_pixbuf (pixbuf.scale_simple (target_width, (int)target_height, Gdk.InterpType.BILINEAR));
+                    var image_style_ctx = image.get_style_context ();
+                    image_style_ctx.add_class (Granite.STYLE_CLASS_CARD);
+                    image.set_visible (true);
 
-                        var image = new Gtk.Image.from_pixbuf (pixbuf.scale_simple (target_width, (int)target_height, Gdk.InterpType.BILINEAR));
-                        var image_style_ctx = image.get_style_context ();
-                        image_style_ctx.add_class (Granite.STYLE_CLASS_CARD);
-                        image.set_visible (true);
+                    var event_box = new Gtk.EventBox () {
+                        can_focus = false,
+                        margin = 6,
+                        hexpand = false,
+                        vexpand = false,
+                        halign = Gtk.Align.CENTER,
+                        valign = Gtk.Align.CENTER
+                    };
+                    event_box.add (image);
+                    event_box.set_visible (true);
 
-                        var event_box = new Gtk.EventBox () {
-                            can_focus = false,
-                            margin = 6,
-                            hexpand = false,
-                            vexpand = false,
-                            halign = Gtk.Align.CENTER,
-                            valign = Gtk.Align.CENTER
-                        };
-                        event_box.add (image);
-                        event_box.set_visible (true);
+                    container.add (event_box);
+                    thumbnails.insert (image, new ImageSource () {
+                        metadata = metadata,
+                        image_provider = image_provider
+                    });
 
-                        container.add (event_box);
-                        thumbnails.insert (image, new ImageSource () {
-                            metadata = metadata,
-                            image_provider = image_provider
-                        });
-
-                        event_box.button_release_event.connect ((_, event) => {
-                            on_image_clicked (image, event);
-                            return true;
-                        });
-                    } catch (Error error) {
-                        warning ("%s %s: '%s': %d: %s\n", Strings.WARN_DOWNLOAD_IMAGE, metadata.id, image_provider.name (), error.code, error.message);
-                    }
+                    event_box.button_release_event.connect ((_, event) => {
+                        on_image_clicked (image, event);
+                        return true;
+                    });
+                } catch (Error error) {
+                    warning ("%s %s: '%s': %d: %s\n", Strings.WARN_DOWNLOAD_IMAGE, metadata.id, image_provider.name (), error.code, error.message);
                 }
-            } catch (Error error) {
-                warning ("%s %s: %d: %s\n", Strings.WARN_DOWNLOAD_IMAGES, image_provider.name (), error.code, error.message);
             }
+        } catch (Error error) {
+            warning ("%s %s: %d: %s\n", Strings.WARN_DOWNLOAD_IMAGES, image_provider.name (), error.code, error.message);
         }
     }
 }

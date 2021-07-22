@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-22 12:07+0300\n"
+"POT-Creation-Date: 2021-07-22 15:58+0300\n"
 "PO-Revision-Date: 2021-07-11 18:43+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -31,118 +31,122 @@ msgid "Failed to create cache directory"
 msgstr "Crearea unui director de cache a eșuat"
 
 #. Header Bar
-#: src/Strings.vala:24
+#: src/Strings.vala:51
 msgid "Menu"
 msgstr "Meniu"
 
 #. Menu Items
-#: src/Strings.vala:27
+#: src/Strings.vala:54
 msgid "Settings..."
 msgstr "Setări..."
 
-#: src/Strings.vala:28
+#: src/Strings.vala:55
 msgid "About Tapet"
 msgstr "Despre Tapet"
 
 #. Settings Dialog
-#: src/Strings.vala:31
+#: src/Strings.vala:58
 msgid "General settings"
 msgstr ""
 
-#: src/Strings.vala:32
+#: src/Strings.vala:59
 msgid "Change the wallpaper automatically"
 msgstr ""
 
-#: src/Strings.vala:33
+#: src/Strings.vala:60
 msgid "When starting set the most recent image available as wallpaper"
 msgstr ""
 
-#: src/Strings.vala:34
+#: src/Strings.vala:61
 msgid "Don't set any previously set wallpapers"
 msgstr ""
 
-#: src/Strings.vala:35
+#: src/Strings.vala:62
 msgid "Refresh the list of available wallpapers"
 msgstr ""
 
-#: src/Strings.vala:36
+#: src/Strings.vala:63
 msgid "Display a notification when changing wallpaper"
 msgstr ""
 
-#: src/Strings.vala:38
+#: src/Strings.vala:65
+msgid "Never"
+msgstr ""
+
+#: src/Strings.vala:66
 msgid "Every minute"
 msgstr ""
 
-#: src/Strings.vala:39
+#: src/Strings.vala:67
 msgid "Every 5 minutes"
 msgstr ""
 
-#: src/Strings.vala:40
+#: src/Strings.vala:68
 msgid "Every 10 minutes"
 msgstr ""
 
-#: src/Strings.vala:41
+#: src/Strings.vala:69
 msgid "Every 15 minutes"
 msgstr ""
 
-#: src/Strings.vala:42
+#: src/Strings.vala:70
 msgid "Every 30 minutes"
 msgstr ""
 
-#: src/Strings.vala:43
+#: src/Strings.vala:71
 msgid "Every hour"
 msgstr ""
 
-#: src/Strings.vala:44
+#: src/Strings.vala:72
 msgid "Every 2 hours"
 msgstr ""
 
-#: src/Strings.vala:45
+#: src/Strings.vala:73
 msgid "Every 4 hours"
 msgstr ""
 
-#: src/Strings.vala:46
+#: src/Strings.vala:74
 msgid "Every 6 hours"
 msgstr ""
 
-#: src/Strings.vala:47
+#: src/Strings.vala:75
 msgid "Every 12 hours"
 msgstr ""
 
-#: src/Strings.vala:48
+#: src/Strings.vala:76
 msgid "Every day"
 msgstr ""
 
-#: src/Strings.vala:50
+#: src/Strings.vala:78
 msgid "Application settings"
 msgstr ""
 
-#: src/Strings.vala:51
+#: src/Strings.vala:79
 msgid "Keep Tapet running in the background when closed"
 msgstr ""
 
 #. Main Content
-#: src/Strings.vala:54
+#: src/Strings.vala:82
 msgid "Set as wallpaper"
 msgstr "Aplică ca imagine de fundal"
 
-#: src/Strings.vala:55
+#: src/Strings.vala:83
 msgid "Save as..."
 msgstr "Salvează..."
 
-#: src/Strings.vala:57
+#: src/Strings.vala:85
 msgid "Failed to set wallpaper"
 msgstr "Aplică ca imagine de fundal"
 
-#: src/Strings.vala:58
+#: src/Strings.vala:86
 msgid "Failed to save wallpaper"
 msgstr "Aplică ca imagine de fundal"
 
-#: src/Strings.vala:60
+#: src/Strings.vala:88
 msgid "Keep application running in the background?"
 msgstr ""
 
-#: src/Strings.vala:61
+#: src/Strings.vala:89
 msgid ""
 "In order to refresh the list of available wallpapers and update the current "
 "wallpaper automatically, Tapet can run in the background.\n"
@@ -150,63 +154,63 @@ msgid ""
 "Do you want to allow Tapet to keep running after this window has been closed?"
 msgstr ""
 
-#: src/Strings.vala:63
+#: src/Strings.vala:91
 msgid "Applying wallpaper"
 msgstr ""
 
-#: src/Strings.vala:65
+#: src/Strings.vala:93
 msgid "Failed to download image from provider"
 msgstr ""
 
-#: src/Strings.vala:66
+#: src/Strings.vala:94
 msgid "Failed to download images from provider"
 msgstr ""
 
 #. Miscellaneous
-#: src/Strings.vala:69
+#: src/Strings.vala:97
 msgid "_Open"
 msgstr "Deschide"
 
-#: src/Strings.vala:70
+#: src/Strings.vala:98
 msgid "_Save"
 msgstr ""
 
-#: src/Strings.vala:71
+#: src/Strings.vala:99
 msgid "_Close"
 msgstr "Închide"
 
-#: src/Strings.vala:72
+#: src/Strings.vala:100
 msgid "_Cancel"
 msgstr "Anulează"
 
-#: src/Strings.vala:73
+#: src/Strings.vala:101
 msgid "_Quit"
 msgstr "Ieșire"
 
-#: src/Strings.vala:74
+#: src/Strings.vala:102
 msgid "_Yes"
 msgstr ""
 
-#: src/Strings.vala:75
+#: src/Strings.vala:103
 msgid "_No"
 msgstr ""
 
-#: src/Strings.vala:77
+#: src/Strings.vala:105
 msgid "Image"
 msgstr ""
 
-#: src/Strings.vala:83
+#: src/Strings.vala:111
 msgid "Download failed, server responded with"
 msgstr ""
 
-#: src/Strings.vala:84
+#: src/Strings.vala:112
 #, c-format
 msgid ""
 "Server responded with an invalid content type; expected 'application/json' "
 "got '%s'"
 msgstr ""
 
-#: src/Strings.vala:85
+#: src/Strings.vala:113
 #, c-format
 msgid "Invalid image url in response: %s"
 msgstr ""
