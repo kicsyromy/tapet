@@ -26,7 +26,14 @@ internal class BackgroundChangeHandler {
     public BackgroundChangeHandler(GenericArray<ImageProvider> image_providers) {
         _image_providers = image_providers;
         _timer.fired.connect (() => {
-            print ("Change the background now\n");
+            update_background_image.begin ((_, res) => {
+                try {
+                    update_background_image.end (res);
+                } catch (Error e)
+                {
+                    TapetApplication.show_warning_dialog (Strings.CONTENT_WARN_SET_BACKGROUND_FAIL_PRIMARY, e.message + ".");
+                }
+            });
         });
 
         update_background_change_interval ();
@@ -41,5 +48,20 @@ internal class BackgroundChangeHandler {
         } else {
             _timer.restart (_refresh_interval);
         }
+    }
+
+    private async void update_background_image () throws Error {
+        ImageMetadata image_metadata = null;
+        ImageProvider image_provider = null;
+        foreach (var provider in _image_providers.data)
+        {
+            var im = yield provider.get_latest_image_metadata ();
+            if (image_metadata == null || image_metadata.date_time.to_unix () < im.date_time.to_unix ()) {
+                image_metadata = im;
+                image_provider = provider;
+            }
+        }
+
+        yield Utilities.set_background_image (image_metadata, image_provider);
     }
 }

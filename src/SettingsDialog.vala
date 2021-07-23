@@ -4,7 +4,7 @@
  */
 
 internal class SettingsDialog : Granite.Dialog {
-    private static string[] background_change_interval_combobox_values = {
+    private static string[] _background_change_interval_combobox_values = {
         Strings.SETTINGS_COMBO_BOX_INTERVAL_NEVER,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_5_MINUTES,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_10_MINUTES,
@@ -18,7 +18,7 @@ internal class SettingsDialog : Granite.Dialog {
         Strings.SETTINGS_COMBO_BOX_INTERVAL_1_DAY
     };
 
-    private static string[] refresh_interval_combobox_values = {
+    private static string[] _refresh_interval_combobox_values = {
         Strings.SETTINGS_COMBO_BOX_INTERVAL_NEVER,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_1_MINUTE,
         Strings.SETTINGS_COMBO_BOX_INTERVAL_5_MINUTES,
@@ -42,7 +42,7 @@ internal class SettingsDialog : Granite.Dialog {
         var section_general_settings = create_settings_section (Strings.SETTINGS_LABEL_SECTION_GENERAL_SETTINGS);
 
         var background_change_interval_combo_box = new Gtk.ComboBoxText ();
-        foreach (var value in background_change_interval_combobox_values)
+        foreach (var value in _background_change_interval_combobox_values)
         {
             background_change_interval_combo_box.append_text (value);
         }
@@ -80,7 +80,7 @@ internal class SettingsDialog : Granite.Dialog {
         section_general_settings.add (dont_reuse_wallpapers);
 
         var refresh_interval_combo_box = new Gtk.ComboBoxText ();
-        foreach (var s in refresh_interval_combobox_values)
+        foreach (var s in _refresh_interval_combobox_values)
         {
             refresh_interval_combo_box.append_text (s);
         }

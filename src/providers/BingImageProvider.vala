@@ -16,6 +16,10 @@ internal class BingImageProvider : ImageProvider, Object {
         return MAX_IMAGE_COUNT;
     }
 
+    public async ImageMetadata get_latest_image_metadata () throws Error {
+        return (yield get_image_metadata_async (1))[0];
+    }
+
     public async ImageMetadata[] get_image_metadata_async (int count) throws Error {
         if (count > MAX_IMAGE_COUNT) {
             count = MAX_IMAGE_COUNT;
@@ -47,15 +51,25 @@ internal class BingImageProvider : ImageProvider, Object {
             var description_and_copyright = image.get_string_member ("copyright").split ("(");
             var description = description_and_copyright[0];
             var copyright = description_and_copyright[1].substring (0, description_and_copyright[1].length - 1);
-            var url_parts = base_url.split ("&")[0].split ("_");
 
+            var date_time_string = image.get_string_member ("fullstartdate"); // 202107230700 (UTC)
+            var date_time = new DateTime.utc (
+                int.parse (date_time_string.substring (0, 4)),  // year
+                int.parse (date_time_string.substring (4, 2)),  // month
+                int.parse (date_time_string.substring (6, 2)),  // day
+                int.parse (date_time_string.substring (8, 2)),  // hour
+                int.parse (date_time_string.substring (10, 2)), // minutes
+                0                                               // seconds
+                );
+
+            var url_parts = base_url.split ("&")[0].split ("_");
             if (url_parts.length != 3) {
                 throw new Error (TapetError.quark, TapetError.Code.IMAGE_PROVIDER_BING_BAD_IMAGE_URL, Strings.ERROR_MESSAGE_INVALID_URL, base_url);
             }
 
             string extension = "." + url_parts[2].split (".")[1];
             var id = url_parts[0] + "_" + url_parts[1] + "_<resolution>" + extension;
-            result[it] = new ImageMetadata (id, title, copyright, description, get_mime_type (id), get_extension (id));
+            result[it] = new ImageMetadata (id, title, copyright, description, get_mime_type (id), get_extension (id), date_time);
         }
 
         return result;

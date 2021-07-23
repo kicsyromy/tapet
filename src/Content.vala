@@ -11,9 +11,9 @@ internal class Content : Gtk.ScrolledWindow {
         public unowned ImageProvider image_provider;
     }
 
-    private Gtk.Popover right_click_menu = new Gtk.Popover (null);
+    private Gtk.Popover _right_click_menu = new Gtk.Popover (null);
 
-    private HashTable<unowned Gtk.Widget, ImageSource> thumbnails = new HashTable<unowned Gtk.Widget, ImageSource>(direct_hash, direct_equal);
+    private HashTable<unowned Gtk.Widget, ImageSource> _thumbnails = new HashTable<unowned Gtk.Widget, ImageSource>(direct_hash, direct_equal);
     private HashTable<unowned ImageProvider, unowned Gtk.FlowBox> _thumbnail_containers = new HashTable<unowned ImageProvider, unowned Gtk.FlowBox>(direct_hash, direct_equal);
 
     construct {
@@ -37,8 +37,8 @@ internal class Content : Gtk.ScrolledWindow {
         right_click_menu_grid.add (save_as_menuitem);
         right_click_menu_grid.show_all ();
 
-        right_click_menu.add (right_click_menu_grid);
-        right_click_menu.set_position (Gtk.PositionType.BOTTOM);
+        _right_click_menu.add (right_click_menu_grid);
+        _right_click_menu.set_position (Gtk.PositionType.BOTTOM);
 
         foreach (var image_provider in TapetApplication.instance.image_providers.data) {
             var flow_box = new Gtk.FlowBox () {
@@ -58,12 +58,10 @@ internal class Content : Gtk.ScrolledWindow {
         show_all ();
 
         set_background_menuitem.clicked.connect (() => {
-            var settings = TapetApplication.instance.system_settings;
-            var thumbnail = (Gtk.Image)right_click_menu.get_relative_to ();
-
-            set_background.begin (settings, thumbnail, (_, res) => {
+            var thumbnail_source = _thumbnails.get (_right_click_menu.get_relative_to ());
+            Utilities.set_background_image.begin (thumbnail_source.metadata, thumbnail_source.image_provider, (_, res) => {
                 try {
-                    set_background.end (res);
+                    Utilities.set_background_image.end (res);
                 } catch (Error error) {
                     TapetApplication.show_warning_dialog (Strings.CONTENT_WARN_SET_BACKGROUND_FAIL_PRIMARY, error.message + ".");
                 }
@@ -71,8 +69,8 @@ internal class Content : Gtk.ScrolledWindow {
         });
 
         save_as_menuitem.clicked.connect (() => {
-            var thumbnail = (Gtk.Image)right_click_menu.get_relative_to ();
-            var image_source = thumbnails.get (thumbnail);
+            var thumbnail = (Gtk.Image)_right_click_menu.get_relative_to ();
+            var image_source = _thumbnails.get (thumbnail);
 
             save_image.begin (thumbnail, image_source, (_, res) => {
                 try {
@@ -99,26 +97,13 @@ internal class Content : Gtk.ScrolledWindow {
     private void on_image_clicked (Gtk.Widget image, Gdk.EventButton event) {
         var mouse_button = event.button;
         if (mouse_button == 3) {
-            right_click_menu.set_relative_to (image);
-            right_click_menu.set_pointing_to (Gdk.Rectangle () {
+            _right_click_menu.set_relative_to (image);
+            _right_click_menu.set_pointing_to (Gdk.Rectangle () {
                 x = (int)Math.round (event.x), y = (int)Math.round (event.y),
                 width = 1, height = 1
             });
-            right_click_menu.set_visible (true);
+            _right_click_menu.set_visible (true);
         }
-    }
-
-    private async void set_background (SystemSettings settings, Gtk.Image thumbnail) throws Error {
-        var thumbnail_source = thumbnails.get (thumbnail);
-
-        var file_name = yield thumbnail_source.image_provider.save_to_file_async (thumbnail_source.metadata, ImageQuality.HIGH, TapetApplication.instance.cache_dir, "wp_", false);
-
-        var current_background = settings.get_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY).get_string (null);
-        info ("%s: %s -> file://%s\n", Strings.DEBUG_APPLY_WALLPAPER, current_background, file_name);
-
-        settings.set_value (Strings.MISC_BACKGROUND_PICTURE_URI_KEY, "file://" + file_name);
-        settings.set_value (Strings.MISC_BACKGROUND_PICTURE_OPTIONS, "zoom");
-        settings.flush ();
     }
 
     private async void save_image (Gtk.Image thumbnail, ImageSource image_source) throws Error {
@@ -189,7 +174,7 @@ internal class Content : Gtk.ScrolledWindow {
                     event_box.set_visible (true);
 
                     container.add (event_box);
-                    thumbnails.insert (image, new ImageSource () {
+                    _thumbnails.insert (image, new ImageSource () {
                         metadata = metadata,
                         image_provider = image_provider
                     });

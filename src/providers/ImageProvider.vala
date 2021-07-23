@@ -22,13 +22,16 @@ class ImageMetadata {
     public string mime_type { get; private set; }
     public string extension { get; private set; }
 
-    public ImageMetadata (string id, string title, string copyright, string description, string mime_type, string extension) {
+    public DateTime date_time { get; private set; }
+
+    public ImageMetadata (string id, string title, string copyright, string description, string mime_type, string extension, DateTime date_time) {
         this.id = id;
         this.title = title;
         this.copyright = copyright;
         this.description = description;
         this.mime_type = mime_type;
         this.extension = extension;
+        this.date_time = date_time;
     }
 }
 
@@ -39,6 +42,7 @@ internal interface ImageProvider : Object {
     public abstract string name ();
     public abstract int get_max_image_count ();
 
+    public abstract async ImageMetadata get_latest_image_metadata () throws Error;
     public abstract async ImageMetadata[] get_image_metadata_async (int count) throws Error;
 
     public abstract async string save_to_file_async (ImageMetadata image_metadata, ImageQuality quality, string path, string prefix, bool overwrite = true) throws Error;

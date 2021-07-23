@@ -8,3 +8,4 @@ Icon=com.github.kicsyromy.tapet
 Terminal=false
 Type=Application
 Keywords=Tapet;Wallpaper;
+X-GNOME-UsesNotifications=true

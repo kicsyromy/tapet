@@ -111,4 +111,7 @@ internal class Strings {
     public const string ERROR_MESSAGE_BAD_RESPONSE = _ ("Download failed, server responded with");
     public const string ERROR_MESSAGE_CONTENT_TYPE_MISSMATCH = _ ("Server responded with an invalid content type; expected 'application/json' got '%s'");
     public const string ERROR_MESSAGE_INVALID_URL = _ ("Invalid image url in response: %s");
+
+    public const string NOTIFICATION_BACKGROUND_SET_TITLE = _ ("Wallpaper Changed");
+    public const string NOTIFICATION_BACKGROUND_SET_MESSAGE = _ ("'%s' set as wallpaper. Enjoy!");
 }
