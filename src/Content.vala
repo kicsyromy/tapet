@@ -94,10 +94,10 @@ internal class Content : Gtk.ScrolledWindow {
         });
     }
 
-    private void on_image_clicked (Gtk.Widget image, Gdk.EventButton event) {
+    private void on_thumbnail_clicked (Gtk.Widget thumbnail, Gdk.EventButton event) {
         var mouse_button = event.button;
         if (mouse_button == 3) {
-            _right_click_menu.set_relative_to (image);
+            _right_click_menu.set_relative_to (thumbnail);
             _right_click_menu.set_pointing_to (Gdk.Rectangle () {
                 x = (int)Math.round (event.x), y = (int)Math.round (event.y),
                 width = 1, height = 1
@@ -152,37 +152,16 @@ internal class Content : Gtk.ScrolledWindow {
 
             foreach (var metadata in metadatas) {
                 try {
-                    var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield image_provider.get_input_stream_async (metadata, ImageQuality.LOW));
+                    var thumbnail = yield new Thumbnail.from_metadata (metadata, image_provider, target_width);
+                    thumbnail.set_visible (true);
+                    thumbnail.clicked.connect (on_thumbnail_clicked);
 
-                    var ratio = (double)target_width / pixbuf.width;
-                    var target_height = pixbuf.height * ratio;
-
-                    var image = new Gtk.Image.from_pixbuf (pixbuf.scale_simple (target_width, (int)target_height, Gdk.InterpType.BILINEAR));
-                    var image_style_ctx = image.get_style_context ();
-                    image_style_ctx.add_class (Granite.STYLE_CLASS_CARD);
-                    image.set_visible (true);
-
-                    var event_box = new Gtk.EventBox () {
-                        can_focus = false,
-                        margin = 6,
-                        hexpand = false,
-                        vexpand = false,
-                        halign = Gtk.Align.CENTER,
-                        valign = Gtk.Align.CENTER
-                    };
-                    event_box.add (image);
-                    event_box.set_visible (true);
-
-                    container.add (event_box);
-                    _thumbnails.insert (image, new ImageSource () {
+                    _thumbnails.insert (thumbnail, new ImageSource () {
                         metadata = metadata,
                         image_provider = image_provider
                     });
 
-                    event_box.button_release_event.connect ((_, event) => {
-                        on_image_clicked (image, event);
-                        return true;
-                    });
+                    container.add (thumbnail);
                 } catch (Error error) {
                     warning ("%s %s: '%s': %d: %s\n", Strings.WARN_DOWNLOAD_IMAGE, metadata.id, image_provider.name (), error.code, error.message);
                 }

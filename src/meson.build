@@ -14,6 +14,7 @@ sources = [
     'SettingsDialog.vala',
     'Strings.vala',
     'SystemSettings.vala',
+    'Thumbnail.vala',
     'Utilities.vala',
 ]
 
