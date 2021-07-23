@@ -16,7 +16,6 @@ internal class Thumbnail : Gtk.Fixed {
 
     public async Thumbnail.from_metadata (ImageMetadata image_metadata, ImageProvider image_provider, int ? target_width = null) throws Error {
         var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield image_provider.get_input_stream_async (image_metadata, ImageQuality.LOW));
-        var thumbnail_average_color = Granite.Drawing.Utilities.average_color (pixbuf);
 
         if (target_width != null) {
             var ratio = (double)target_width / pixbuf.width;
@@ -34,13 +33,7 @@ internal class Thumbnail : Gtk.Fixed {
             xalign = 0
         };
         copyright_label.set_ellipsize (Pango.EllipsizeMode.END);
-        var label_color = Granite.contrasting_foreground_color (Gdk.RGBA () {
-            red = thumbnail_average_color.R,
-            green = thumbnail_average_color.G,
-            blue = thumbnail_average_color.B,
-            alpha = thumbnail_average_color.A
-        });
-        var css = CSS;//.printf (label_color.to_string ());
+        var css = CSS;
         var css_provider = new Gtk.CssProvider ();
         css_provider.load_from_data (css, css.length);
         copyright_label.get_style_context ().add_class ("copyright-label");

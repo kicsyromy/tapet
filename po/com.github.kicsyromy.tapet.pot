@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.kicsyromy.tapet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-22 15:58+0300\n"
+"POT-Creation-Date: 2021-07-23 20:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -214,6 +214,15 @@ msgstr ""
 msgid "Invalid image url in response: %s"
 msgstr ""
 
+#: src/Strings.vala:115
+msgid "Wallpaper Changed"
+msgstr ""
+
+#: src/Strings.vala:116
+#, c-format
+msgid "'%s' set as wallpaper. Enjoy!"
+msgstr ""
+
 #: data/tapet.desktop.in:4
 msgid "Tapet Wallpaper Manager"
 msgstr ""
@@ -223,6 +232,6 @@ msgstr ""
 msgid "Download and apply wallpapers from popular online sources"
 msgstr ""
 
-#: data/tapet.desktop.in:10
+#: data/tapet.desktop.in:11
 msgid "Tapet;Wallpaper;"
 msgstr ""

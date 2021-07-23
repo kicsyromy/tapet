@@ -53,6 +53,7 @@ internal class Utilities {
             if (show_notification) {
                 var notification = new Notification (Strings.NOTIFICATION_BACKGROUND_SET_TITLE);
                 notification.set_body (Strings.NOTIFICATION_BACKGROUND_SET_MESSAGE.printf (image_metadata.title));
+                notification.set_icon (new ThemedIcon ("process-completed"));
                 TapetApplication.instance.send_notification (Strings.APPLICATION_ID, notification);
             }
         }
