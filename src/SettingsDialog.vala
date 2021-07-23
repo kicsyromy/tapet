@@ -129,14 +129,6 @@ internal class SettingsDialog : Granite.Dialog {
         content_area.vexpand = true;
         content_area.pack_start (layout);
 
-        //  path_button.clicked.connect (() => {
-        //      var file_chooser = new Gtk.FileChooserNative (Strings.SETTINGS_DOWNLOAD_FOLDER, this, Gtk.FileChooserAction.SELECT_FOLDER, Strings.MISC_OPEN, Strings.MISC_CANCEL);
-        //      var result = file_chooser.run ();
-        //      if (result == Gtk.ResponseType.ACCEPT) {
-        //          path_button_label.set_text (file_chooser.get_file ().get_parse_name ());
-        //      }
-        //  });
-
         response.connect ((response_id) => {
             destroy ();
         });

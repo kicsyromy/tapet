@@ -44,7 +44,9 @@ internal class BingImageProvider : ImageProvider, Object {
             var image = img.get_object ();
             var base_url = image.get_string_member ("url");
             var title = image.get_string_member ("title");
-            var copyright = image.get_string_member ("copyright");
+            var description_and_copyright = image.get_string_member ("copyright").split ("(");
+            var description = description_and_copyright[0];
+            var copyright = description_and_copyright[1].substring (0, description_and_copyright[1].length - 1);
             var url_parts = base_url.split ("&")[0].split ("_");
 
             if (url_parts.length != 3) {
@@ -53,7 +55,7 @@ internal class BingImageProvider : ImageProvider, Object {
 
             string extension = "." + url_parts[2].split (".")[1];
             var id = url_parts[0] + "_" + url_parts[1] + "_<resolution>" + extension;
-            result[it] = new ImageMetadata (id, title, copyright, "", get_mime_type (id), get_extension (id));
+            result[it] = new ImageMetadata (id, title, copyright, description, get_mime_type (id), get_extension (id));
         }
 
         return result;
