@@ -4,6 +4,7 @@ sources = [
     'providers' / 'BingImageProvider.vala',
     'providers' / 'ImageProvider.vala',
     'Application.vala',
+    'BackgroundChangeHandler.vala',
     'BasicTimer.vala',
     'Content.vala',
     'Error.vala',

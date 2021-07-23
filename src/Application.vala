@@ -15,6 +15,7 @@ public class TapetApplication : Gtk.Application {
 
     private MainWindow _main_window = null;
     private ImageRefreshHandler _image_refresh_handler = null;
+    private BackgroundChangeHandler _background_change_handler = null;
 
     public TapetApplication () {
         Object (
@@ -94,11 +95,13 @@ public class TapetApplication : Gtk.Application {
 
             image_providers.add (new BingImageProvider ());
 
+            _background_change_handler = new BackgroundChangeHandler (image_providers);
             _image_refresh_handler = new ImageRefreshHandler (image_providers);
 
             application_settings.changed.connect ((key) => {
                 switch (key) {
                 case Strings.APPLICATION_SETTINGS_BACKGROUND_CHANGE_INTERVAL :
+                    _background_change_handler.update_background_change_interval ();
                     break;
                 case Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST :
                     break;

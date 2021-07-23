@@ -5,13 +5,12 @@
 
 using GLib;
 
-internal class ImageRefreshHandler {
+internal class BackgroundChangeHandler {
     private BasicTimer _timer = new BasicTimer ();
     private unowned GenericArray<ImageProvider> _image_providers = null;
     private uint _refresh_interval = 0;
     private const uint[] _refresh_intervals = {
         0,
-        60000,
         5 * 60000,
         10 * 60000,
         15 * 60000,
@@ -24,21 +23,18 @@ internal class ImageRefreshHandler {
         24 * 60 * 60000
     };
 
-    public ImageRefreshHandler(GenericArray<ImageProvider> image_providers) {
+    public BackgroundChangeHandler(GenericArray<ImageProvider> image_providers) {
         _image_providers = image_providers;
         _timer.fired.connect (() => {
-            foreach (var image_provider in _image_providers.data)
-            {
-                MainWindow.instance.refresh_content_from_provider (image_provider);
-            }
+            print ("Change the background now\n");
         });
 
-        update_refresh_interval ();
+        update_background_change_interval ();
     }
 
-    public void update_refresh_interval () {
+    public void update_background_change_interval () {
         var application_settings = TapetApplication.instance.application_settings;
-        var refresh_interval_index = Utilities.get_interval_setting_index (application_settings.get_string (Strings.APPLICATION_SETTINGS_REFRESH_INTERVAL));
+        var refresh_interval_index = Utilities.get_interval_setting_index (application_settings.get_string (Strings.APPLICATION_SETTINGS_BACKGROUND_CHANGE_INTERVAL));
         _refresh_interval = _refresh_intervals[refresh_interval_index];
         if (_refresh_interval == 0) {
             _timer.stop ();
