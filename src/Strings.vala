@@ -60,8 +60,8 @@ internal class Strings {
     /* Settings Dialog */
     public const string SETTINGS_LABEL_SECTION_GENERAL_SETTINGS = _ ("General settings");
     public const string SETTINGS_LABEL_ITEM_BACKGROUND_CHANGE_INTERVAL = _ ("Change the wallpaper automatically");
+    public const string SETTINGS_LABEL_ITEM_DONT_REUSE_OLD_WALLPAPERS = _ ("When changing wallpaper automatically, don't set any previously set wallpapers");
     public const string SETTINGS_LABEL_ITEM_STARTUP_SET_LATEST = _ ("When starting set the most recent image available as wallpaper");
-    public const string SETTINGS_LABEL_ITEM_DONT_REUSE_OLD_WALLPAPERS = _ ("Don't set any previously set wallpapers");
     public const string SETTINGS_LABEL_ITEM_REFRESH_INTERVAL = _ ("Refresh the list of available wallpapers");
     public const string SETTINGS_LABEL_ITEM_ENABLE_NOTIFICATIONS = _ ("Display a notification when changing wallpaper");
 

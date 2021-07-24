@@ -69,15 +69,15 @@ internal class SettingsDialog : Granite.Dialog {
         var background_change_interval = create_settings_item (Strings.SETTINGS_LABEL_ITEM_BACKGROUND_CHANGE_INTERVAL, background_change_interval_combo_box);
         section_general_settings.add (background_change_interval);
 
-        var startup_switch = new Gtk.Switch ();
-        application_settings.bind (Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST, startup_switch, "active", GLib.SettingsBindFlags.DEFAULT);
-        var startup_set_latest = create_settings_item (Strings.SETTINGS_LABEL_ITEM_STARTUP_SET_LATEST, startup_switch);
-        section_general_settings.add (startup_set_latest);
-
         var dont_reuse_wallpapers_switch = new Gtk.Switch ();
         application_settings.bind (Strings.APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS, dont_reuse_wallpapers_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         var dont_reuse_wallpapers = create_settings_item (Strings.SETTINGS_LABEL_ITEM_DONT_REUSE_OLD_WALLPAPERS, dont_reuse_wallpapers_switch);
         section_general_settings.add (dont_reuse_wallpapers);
+
+        var startup_switch = new Gtk.Switch ();
+        application_settings.bind (Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST, startup_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        var startup_set_latest = create_settings_item (Strings.SETTINGS_LABEL_ITEM_STARTUP_SET_LATEST, startup_switch);
+        section_general_settings.add (startup_set_latest);
 
         var refresh_interval_combo_box = new Gtk.ComboBoxText ();
         foreach (var s in _refresh_interval_combobox_values)

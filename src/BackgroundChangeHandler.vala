@@ -25,8 +25,11 @@ internal class BackgroundChangeHandler {
 
     public BackgroundChangeHandler(GenericArray<ImageProvider> image_providers) {
         _image_providers = image_providers;
+
+        var application_settings = TapetApplication.instance.application_settings;
         _timer.fired.connect (() => {
-            update_background_image.begin ((_, res) => {
+            var never_set_previous_background = application_settings.get_boolean (Strings.APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS);
+            update_background_image.begin (!never_set_previous_background, (_, res) => {
                 try {
                     update_background_image.end (res);
                 } catch (Error e)
@@ -36,10 +39,9 @@ internal class BackgroundChangeHandler {
             });
         });
 
-        var application_settings = TapetApplication.instance.application_settings;
         var apply_latest_background_image = application_settings.get_boolean (Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST);
         if (apply_latest_background_image) {
-            update_background_image.begin ((_, res) => {
+            update_background_image.begin (true, (_, res) => {
                 try {
                     update_background_image.end (res);
                 } catch (Error e) {
@@ -62,7 +64,7 @@ internal class BackgroundChangeHandler {
         }
     }
 
-    private async void update_background_image () throws Error {
+    private async void update_background_image (bool allow_previous_backgrounds) throws Error {
         ImageMetadata image_metadata = null;
         ImageProvider image_provider = null;
         foreach (var provider in _image_providers.data)
@@ -74,7 +76,6 @@ internal class BackgroundChangeHandler {
             }
         }
 
-        var never_set_previous_background = TapetApplication.instance.application_settings.get_boolean (Strings.APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS);
-        yield Utilities.set_background_image (image_metadata, image_provider, !never_set_previous_background);
+        yield Utilities.set_background_image (image_metadata, image_provider, allow_previous_backgrounds);
     }
 }
