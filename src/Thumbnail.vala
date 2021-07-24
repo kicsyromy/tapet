@@ -7,12 +7,9 @@
 using GLib;
 
 internal class Thumbnail : Gtk.Fixed {
-    private const string CSS = """
-        .copyright-label {
-            color: white;
-            text-shadow: 2px 2px 2px black;
-        }
-    """;
+    public unowned Gtk.Image image { get { return _image; }  }
+
+    public signal void clicked (Gtk.Widget source, Gdk.EventButton event);
 
     public async Thumbnail.from_metadata (ImageMetadata image_metadata, ImageProvider image_provider, int ? target_width = null) throws Error {
         var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield image_provider.get_input_stream_async (image_metadata, ImageQuality.LOW));
@@ -27,6 +24,7 @@ internal class Thumbnail : Gtk.Fixed {
         var image_style_ctx = image.get_style_context ();
         image_style_ctx.add_class (Granite.STYLE_CLASS_CARD);
         image.set_visible (true);
+        _image = image;
 
         var copyright_label = new Gtk.Label (image_metadata.copyright) {
             width_request = pixbuf.width,
@@ -63,5 +61,12 @@ internal class Thumbnail : Gtk.Fixed {
         put (copyright_label, 10, pixbuf.height - 15);
     }
 
-    public signal void clicked (Gtk.Widget source, Gdk.EventButton event);
+    private const string CSS = """
+        .copyright-label {
+            color: white;
+            text-shadow: 2px 2px 2px black;
+        }
+    """;
+
+    private unowned Gtk.Image _image;
 }

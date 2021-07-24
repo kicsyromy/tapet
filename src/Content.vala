@@ -69,10 +69,10 @@ internal class Content : Gtk.ScrolledWindow {
         });
 
         save_as_menuitem.clicked.connect (() => {
-            var thumbnail = (Gtk.Image)_right_click_menu.get_relative_to ();
+            var thumbnail = (Thumbnail)_right_click_menu.get_relative_to ();
             var image_source = _thumbnails.get (thumbnail);
 
-            save_image.begin (thumbnail, image_source, (_, res) => {
+            save_image.begin (thumbnail.image, image_source, (_, res) => {
                 try {
                     save_image.end (res);
                 } catch (Error error) {
