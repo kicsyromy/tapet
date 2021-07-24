@@ -1,8 +1,8 @@
 cc = meson.get_compiler('c')
 
 sources = [
-    'providers' / 'BingImageProvider.vala',
-    'providers' / 'ImageProvider.vala',
+    'image_providers' / 'BingImageProvider.vala',
+    'image_providers' / 'ImageProvider.vala',
     'Application.vala',
     'BackgroundChangeHandler.vala',
     'BasicTimer.vala',

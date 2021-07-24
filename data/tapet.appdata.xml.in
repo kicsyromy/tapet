@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2021 Romeo Calotă <mail@romeocalota.me> -->
 <component type="desktop">
-    <id>com.github.kicsyromy.tapet</id>
-    <metadata_license>CC0</metadata_license>
-    <name>Tapet</name>
-    <summary>Download and apply wallpapers from popular online sources</summary>
-    <description>
-        <p>Download and apply wallpapers from popular online sources</p>
-    </description>
+  <id>com.github.kicsyromy.tapet</id>
+  <metadata_license>CC0</metadata_license>
+  <name>Tapet</name>
+  <developer_name>Romeo Calotă</developer_name>
+
+  <summary>Download and apply wallpapers from popular online sources</summary>
+  <description>
+    <p>Download and apply wallpapers from popular online sources</p>
+  </description>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Main Application Window</caption>
+      <image>https://github.com/kicsyromy/tapet/raw/main/images/screenshot_main_window.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Settings Dialog</caption>
+      <image>https://github.com/kicsyromy/tapet/raw/main/images/screenshot_settings.png</image>
+    </screenshot>
+  </screenshots>
+
+  <content_rating type="oars-1.1">
+  </content_rating>
 </component>
