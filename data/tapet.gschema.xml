@@ -45,7 +45,7 @@
         <choice value="11|every-day"/>
       </choices>
       <default>"0|never"</default>
-      <summary>Interval at which to change the wallpaper automatically</summary>
+      <summary>Interval at which to refresh the list of available wallpapers</summary>
     </key>
 
     <key name="enable-notifications" type="b">

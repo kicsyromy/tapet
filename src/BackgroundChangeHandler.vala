@@ -36,6 +36,18 @@ internal class BackgroundChangeHandler {
             });
         });
 
+        var application_settings = TapetApplication.instance.application_settings;
+        var apply_latest_background_image = application_settings.get_boolean (Strings.APPLICATION_SETTINGS_STARTUP_SET_LATEST);
+        if (apply_latest_background_image) {
+            update_background_image.begin ((_, res) => {
+                try {
+                    update_background_image.end (res);
+                } catch (Error e) {
+                    warning ("%s\n", e.message);
+                }
+            });
+        }
+
         update_background_change_interval ();
     }
 
@@ -62,6 +74,7 @@ internal class BackgroundChangeHandler {
             }
         }
 
-        yield Utilities.set_background_image (image_metadata, image_provider);
+        var never_set_previous_background = TapetApplication.instance.application_settings.get_boolean (Strings.APPLICATION_SETTINGS_DONT_REUSE_OLD_WALLPAPERS);
+        yield Utilities.set_background_image (image_metadata, image_provider, !never_set_previous_background);
     }
 }

@@ -11,6 +11,9 @@ internal class Strings {
 
     public const string APPLICATION_ERROR_INIT_FAILED = _ ("Tapet failed to initialize properly");
     public const string APPLICATION_ERROR_CACHE_CREATE = _ ("Failed to create cache directory");
+    public const string APPLICATION_ERROR_CONFIG_CREATE = _ ("Failed to create config directory");
+    public const string APPLICATION_ERROR_CONFIG_BACKGROUND_CREATE = _ ("Failed to create background history file. Tapet will not keep track of what wallpapers were applied.");
+    public const string APPLICATION_ERROR_CONFIG_BACKGROUND_OPEN = _ ("Failed to open background history file. Tapet will not keep track of what wallpapers were applied.");
 
     /* Application Settings */
     public const string APPLICATION_SETTINGS_BACKGROUND_CHANGE_INTERVAL = "background-change-interval";

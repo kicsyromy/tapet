@@ -12,6 +12,8 @@ public class TapetApplication : Gtk.Application {
     internal Settings application_settings = new Settings (Strings.APPLICATION_ID);
     internal GenericArray<ImageProvider> image_providers = new GenericArray<ImageProvider>();
     internal string cache_dir;
+    internal string config_dir;
+    internal string background_history_file;
 
     private MainWindow _main_window = null;
     private ImageRefreshHandler _image_refresh_handler = null;
@@ -89,7 +91,29 @@ public class TapetApplication : Gtk.Application {
                 if (error.code != IOError.EXISTS) {
                     critical ("%s: %d: %s\n", Strings.APPLICATION_ERROR_CACHE_CREATE, error.code, error.message);
                     string error_cache_create_msg = Strings.APPLICATION_ERROR_CACHE_CREATE;
-                    show_fatal_dialog (Strings.APPLICATION_ERROR_INIT_FAILED, error_cache_create_msg + ". " + error.message + ".");
+                    show_fatal_dialog (Strings.APPLICATION_ERROR_INIT_FAILED, error_cache_create_msg + ".\n\n" + error.message + ".");
+                }
+            }
+
+            try {
+                config_dir ="%s/%s".printf (Environment.get_user_config_dir (), Strings.APPLICATION_ID);
+                File.new_for_path (config_dir).make_directory ();
+            } catch (Error error) {
+                if (error.code != IOError.EXISTS) {
+                    critical ("%s: %d: %s\n", Strings.APPLICATION_ERROR_CONFIG_CREATE, error.code, error.message);
+                    string error_config_create_msg = Strings.APPLICATION_ERROR_CONFIG_CREATE;
+                    show_fatal_dialog (Strings.APPLICATION_ERROR_INIT_FAILED, error_config_create_msg + ".\n\n" + error.message + ".");
+                }
+            }
+
+            background_history_file = "%s/previous_backgrounds.cfg".printf (config_dir);
+            try {
+                File.new_for_path (background_history_file).create (FileCreateFlags.NONE);
+            } catch (Error error) {
+                if (error.code != IOError.EXISTS) {
+                    warning ("%s: %d: %s\n", Strings.APPLICATION_ERROR_CONFIG_BACKGROUND_CREATE, error.code, error.message);
+                    string error_config_background_create_msg = Strings.APPLICATION_ERROR_CONFIG_BACKGROUND_CREATE;
+                    show_warning_dialog (Strings.APPLICATION_ERROR_INIT_FAILED, error_config_background_create_msg + ".\n\n" + error.message + ".");
                 }
             }
 
@@ -118,6 +142,7 @@ public class TapetApplication : Gtk.Application {
             });
 
             _main_window = new MainWindow ();
+            _main_window.show_all ();
             add_window (_main_window);
         }
     }

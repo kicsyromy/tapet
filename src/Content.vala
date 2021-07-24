@@ -59,7 +59,7 @@ internal class Content : Gtk.ScrolledWindow {
 
         set_background_menuitem.clicked.connect (() => {
             var thumbnail_source = _thumbnails.get (_right_click_menu.get_relative_to ());
-            Utilities.set_background_image.begin (thumbnail_source.metadata, thumbnail_source.image_provider, (_, res) => {
+            Utilities.set_background_image.begin (thumbnail_source.metadata, thumbnail_source.image_provider, true, (_, res) => {
                 try {
                     Utilities.set_background_image.end (res);
                 } catch (Error error) {

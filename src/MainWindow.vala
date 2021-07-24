@@ -35,7 +35,6 @@ internal class MainWindow : Hdy.ApplicationWindow {
         box.add (_content);
 
         add (box);
-        show_all ();
     }
 
     public void refresh_content_from_provider (ImageProvider image_provider) {
