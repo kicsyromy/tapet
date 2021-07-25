@@ -70,6 +70,6 @@ internal class Thumbnail : Gtk.Fixed {
         });
 
         put (event_box,       0,  0);
-        put (copyright_label, 10, pixbuf.height - 15);
+        put (copyright_label, 10, pixbuf.height - 22);
     }
 }
