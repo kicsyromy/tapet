@@ -1,4 +1,4 @@
-## Tapet
+![Tapet](data/icons/scalable.svg)
 
 ### Download and apply wallpapers from popular online sources
 
