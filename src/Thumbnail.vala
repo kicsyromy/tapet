@@ -8,10 +8,28 @@ using GLib;
 
 internal class Thumbnail : Gtk.Fixed {
     public unowned Gtk.Image image { get { return _image; }  }
+    private unowned Gtk.Image _image;
 
     public signal void clicked (Gtk.Widget source, Gdk.EventButton event);
 
+    private const int MARGIN = 6;
+    private const string CSS = """
+        .copyright-label {
+            color: white;
+            text-shadow: 2px 2px 2px black;
+        }
+    """;
+
     public async Thumbnail.from_metadata (ImageMetadata image_metadata, ImageProvider image_provider, int ? target_width = null) throws Error {
+        Object (
+            can_focus: false,
+            margin: MARGIN,
+            hexpand: false,
+            vexpand: false,
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.CENTER
+            );
+
         var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield image_provider.get_input_stream_async (image_metadata, ImageQuality.LOW));
 
         if (target_width != null) {
@@ -19,7 +37,9 @@ internal class Thumbnail : Gtk.Fixed {
             var target_height = pixbuf.height * ratio;
             pixbuf = pixbuf.scale_simple (target_width, (int)target_height, Gdk.InterpType.BILINEAR);
         }
-        var image = new Gtk.Image.from_pixbuf (pixbuf);
+        var image = new Gtk.Image.from_pixbuf (pixbuf) {
+            can_focus = false
+        };
 
         var image_style_ctx = image.get_style_context ();
         image_style_ctx.add_class (Granite.STYLE_CLASS_CARD);
@@ -39,20 +59,12 @@ internal class Thumbnail : Gtk.Fixed {
         copyright_label.set_visible (true);
 
         var event_box = new Gtk.EventBox () {
-            can_focus = false,
-            margin = 6,
-            hexpand = false,
-            vexpand = false,
-            halign = Gtk.Align.CENTER,
-            valign = Gtk.Align.CENTER
+            can_focus = false
         };
-
         event_box.add (image);
         event_box.set_visible (true);
 
         event_box.button_release_event.connect ((_, event) => {
-            event.x += 6;
-            event.y += 6;
             clicked (this, event);
             return true;
         });
@@ -60,13 +72,4 @@ internal class Thumbnail : Gtk.Fixed {
         put (event_box,       0,  0);
         put (copyright_label, 10, pixbuf.height - 15);
     }
-
-    private const string CSS = """
-        .copyright-label {
-            color: white;
-            text-shadow: 2px 2px 2px black;
-        }
-    """;
-
-    private unowned Gtk.Image _image;
 }

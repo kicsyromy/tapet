@@ -52,6 +52,10 @@ internal class Strings {
 
     /* Header Bar */
     public const string HEADER_BAR_MENU_TOOLTIP = _ ("Menu");
+    public const string HEADER_BAR_BROWSE_BUTTON_LABEL = _ ("_Browse...");
+    public const string HEADER_BAR_BROWSE_BUTTON_TOOLTIP = _ ("Browse all previously applied wallpapers");
+
+    public const string HEADER_BAR_DIALOG_WARN_OPEN_CACHE_DIR_FAIL = _ ("Failed to open wallpaper cache directory");
 
     /* Menu Items */
     public const string MENU_ITEM_SETTINGS = _ ("Settings...");

@@ -2,13 +2,26 @@
 <!-- Copyright 2021 Romeo Calotă <mail@romeocalota.me> -->
 <component type="desktop">
   <id>com.github.kicsyromy.tapet</id>
-  <metadata_license>CC0</metadata_license>
   <name>Tapet</name>
   <developer_name>Romeo Calotă</developer_name>
 
+  <project_license>MIT</project_license>
+  <metadata_license>CC0</metadata_license>
+
+  <url type="homepage">https://github.com/kicsyromy/tapet</url>
+  <url type="bugtracker">https://github.com/kicsyromy/tapet/issues</url>
+  <url type="help">https://github.com/kicsyromy/tapet</url>
+
   <summary>Download and apply wallpapers from popular online sources</summary>
   <description>
-    <p>Download and apply wallpapers from popular online sources</p>
+    <p>View wallpapers from popular online sources (only Bing Wallpaper of the Day is currently supported), save them and set them as your desktop wallpaper.</p>
+    <p></p>
+    <p>Features:</p>
+    <p>\tAutomatically update a list of available wallpapers, on a schedule.</p>
+    <p>\tAutomatically apply, on a schedule, the latest wallpaper available from any source.</p>
+    <p>\tAutomatically apply the latest wallpaper when starting up the application.</p>
+    <p>\tSave any image to a location of your choosing.</p>
+    <p>\tRun in the background so that the app stays invisible, while continuing to do any of the scheduled tasks.</p>
   </description>
 
   <screenshots>

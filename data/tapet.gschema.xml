@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema path="/com/github/kicsyromy/tapet/" id="com.github.kicsyromy.tapet">
+   <key name="window-maximized" type="b">
+      <default>false</default>
+    </key>
+    <key name="window-position" type="(ii)">
+      <default>(-1, -1)</default>
+    </key>
+    <key name="window-size" type="(ii)">
+      <default>(1036, 800)</default>
+    </key>
+
     <key name="background-change-interval" type="s">
       <choices>
         <choice value="0|never"/>

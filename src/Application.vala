@@ -19,10 +19,12 @@ public class TapetApplication : Gtk.Application {
     private ImageRefreshHandler _image_refresh_handler = null;
     private BackgroundChangeHandler _background_change_handler = null;
 
+    private bool start_minimized = false;
+
     public TapetApplication () {
         Object (
             application_id: Strings.APPLICATION_ID,
-            flags : ApplicationFlags.FLAGS_NONE
+            flags : ApplicationFlags.HANDLES_COMMAND_LINE
             );
 
         startup.connect (() => {
@@ -81,6 +83,12 @@ public class TapetApplication : Gtk.Application {
     }
 
     protected override void activate () {
+        var flatpak_id = Environment.get_variable ("FLATPAK_ID");
+        var container = Environment.get_variable ("container");
+
+        print ("FLATPAK_ID: %s\n", flatpak_id);
+        print ("container: %s\n",  container);
+
         if (_main_window != null) {
             _main_window.set_visible (true);
         } else {
@@ -141,19 +149,63 @@ public class TapetApplication : Gtk.Application {
                 }
             });
 
+            var granite_settings = Granite.Settings.get_default ();
+            var gtk_settings = Gtk.Settings.get_default ();
+
+            // TODO: Figure out why this crashes when running from Flatpak
+            if (container == null && flatpak_id == null) {
+                gtk_settings.gtk_application_prefer_dark_theme = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+                granite_settings.notify["prefers-color-scheme"].connect (() => {
+                    gtk_settings.gtk_application_prefer_dark_theme = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+                });
+            }
+
             _main_window = new MainWindow ();
             _main_window.show_all ();
             add_window (_main_window);
+
+            if (start_minimized) {
+                _main_window.set_visible (false);
+            }
         }
     }
 
-    public static int main (string[] args) {
-        print ("FLATPAK_ID: %s\n", Environment.get_variable ("FLATPAK_ID"));
-        print ("container: %s\n",  Environment.get_variable ("container"));
+    public override int command_line (ApplicationCommandLine command_line) {
+        const string HELP_STRING = """Usage: %s [options]...                                                                                                                  
+Options:                                                         
+  -m, --minimized          Start the application without showing the main window.
+  --help                   Display this information.
+""";
 
+        string[] argv = command_line.get_arguments ();
+        bool print_help_and_exit = false;
+
+        foreach (var arg in argv[1:argv.length]) {
+            // Only parse most arguments if the application is not already running in the background
+            if (_main_window == null) {
+                if (arg == "-m" || arg == "--minimized") {
+                    start_minimized = true;
+                }
+            }
+
+            if (arg == "-h" || arg == "--help") {
+                print (HELP_STRING, argv[0]);
+                print_help_and_exit = true;
+            }
+        }
+
+        if (!print_help_and_exit) {
+            activate ();
+        }
+
+        return 0;
+    }
+
+    public static int main (string[] args) {
         TapetError.quark = Quark.from_string (Strings.APPLICATION_ERROR_QUARK);
 
         instance = new TapetApplication ();
+
         return instance.run (args);
     }
 }
