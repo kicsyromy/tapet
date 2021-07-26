@@ -9,9 +9,9 @@ Terminal=false
 Type=Application
 Keywords=Tapet;Wallpaper;
 X-GNOME-UsesNotifications=true
-Actions=StartMinimized
+Actions=StartHidden
 
-[Desktop Action StartMinimized]
-Name=Start Minimized
+[Desktop Action StartHidden]
+Name=Start Hidden
 Icon=com.github.kicsyromy.tapet
 Exec=com.github.kicsyromy.tapet -m
