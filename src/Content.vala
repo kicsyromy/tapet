@@ -167,7 +167,7 @@ internal class Content : Gtk.ScrolledWindow {
                 }
             }
         } catch (Error error) {
-            warning ("%s %s: %d: %s\n", Strings.WARN_DOWNLOAD_IMAGES, image_provider.name (), error.code, error.message);
+            warning ("%s: %s. %s\n", image_provider.name (), Strings.WARN_DOWNLOAD_IMAGES, error.message);
         }
     }
 }
