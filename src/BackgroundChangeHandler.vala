@@ -46,6 +46,7 @@ internal class BackgroundChangeHandler {
                     update_background_image.end (res);
                 } catch (Error e) {
                     warning ("%s\n", e.message);
+                    TapetApplication.show_warning_dialog (Strings.WARN_DOWNLOAD_IMAGE, e.message + ".");
                 }
             });
         }

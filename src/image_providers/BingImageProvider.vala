@@ -9,7 +9,7 @@ internal class BingImageProvider : ImageProvider, Object {
     public const int MAX_IMAGE_COUNT = 8;
 
     public string name () {
-        return "Bing";
+        return "BingImageProvider";
     }
 
     public int get_max_image_count () {
