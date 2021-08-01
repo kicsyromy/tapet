@@ -7,6 +7,21 @@
 using GLib;
 
 internal class Thumbnail : Gtk.Fixed {
+    private class Image : Gtk.EventBox {
+        public unowned Gtk.Image internal_image { get { return (Gtk.Image)get_child (); } }
+
+        public Image (Gdk.Pixbuf pixbuf) {
+            var child = new Gtk.Image.from_pixbuf (pixbuf) {
+                margin = MARGIN
+            };
+            child.set_size_request (pixbuf.width, pixbuf.height);
+            child.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            child.set_visible (true);
+
+            add (child);
+        }
+    }
+
     public unowned Gtk.Image image { get { return _image; }  }
     private unowned Gtk.Image _image;
 
@@ -18,17 +33,23 @@ internal class Thumbnail : Gtk.Fixed {
             color: white;
             text-shadow: 2px 2px 2px black;
         }
+        .thumbnail-image {
+            border-radius: 20%;
+            border: 10px solid #73AD21;
+        }
     """;
 
     public async Thumbnail.from_metadata (ImageMetadata image_metadata, ImageProvider image_provider, int ? target_width = null) throws Error {
         Object (
             can_focus: false,
-            margin: MARGIN,
             hexpand: false,
             vexpand: false,
             halign: Gtk.Align.CENTER,
             valign: Gtk.Align.CENTER
             );
+
+        var css_provider = new Gtk.CssProvider ();
+        css_provider.load_from_data (CSS, CSS.length);
 
         var pixbuf = yield new Gdk.Pixbuf.from_stream_async (yield image_provider.get_input_stream_async (image_metadata, ImageQuality.LOW));
 
@@ -37,39 +58,26 @@ internal class Thumbnail : Gtk.Fixed {
             var target_height = pixbuf.height * ratio;
             pixbuf = pixbuf.scale_simple (target_width, (int)target_height, Gdk.InterpType.BILINEAR);
         }
-        var image = new Gtk.Image.from_pixbuf (pixbuf) {
-            can_focus = false
-        };
 
-        var image_style_ctx = image.get_style_context ();
-        image_style_ctx.add_class (Granite.STYLE_CLASS_CARD);
+        var image = new Image (pixbuf);
+        _image = image.internal_image;
         image.set_visible (true);
-        _image = image;
 
         var copyright_label = new Gtk.Label (image_metadata.copyright) {
-            width_request = pixbuf.width,
+            width_request = pixbuf.width - MARGIN * 4,
             xalign = 0
         };
         copyright_label.set_ellipsize (Pango.EllipsizeMode.END);
-        var css = CSS;
-        var css_provider = new Gtk.CssProvider ();
-        css_provider.load_from_data (css, css.length);
         copyright_label.get_style_context ().add_class ("copyright-label");
         copyright_label.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         copyright_label.set_visible (true);
 
-        var event_box = new Gtk.EventBox () {
-            can_focus = false
-        };
-        event_box.add (image);
-        event_box.set_visible (true);
-
-        event_box.button_release_event.connect ((_, event) => {
+        image.button_release_event.connect ((_, event) => {
             clicked (this, event);
             return true;
         });
 
-        put (event_box,       0,  0);
-        put (copyright_label, 10, pixbuf.height - 22);
+        put (image,           0,          0);
+        put (copyright_label, MARGIN * 4, pixbuf.height - MARGIN * 4);
     }
 }
